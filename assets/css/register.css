@@ -1,0 +1,305 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.header {
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 40px;
+    z-index: 99;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+}
+
+.header .nav {
+    display: flex;
+    align-items: center;
+    margin-left: 50px; 
+}
+
+.logo img {
+    width: 50px;         
+    height: 50px;
+    margin-top: 10px;
+    margin-left: 60px;
+    object-fit: cover;
+    border-radius: 50%;  
+    border: 2px solid #fff; 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08); 
+}
+
+.header .nav a {
+    text-decoration: none;
+    color: #000000;
+    font-size: 20px;
+    margin-left: 50px;
+    font-weight: 600;
+}
+
+.header .nav a:first-child {
+    margin-left: 0;
+}
+
+.header .nav a:hover {
+    color: #57ddff;
+    transition: 0.3s ease-in-out;
+}
+
+.search-box {
+    position: absolute;
+    margin-top: -20px;
+    right: 40px; 
+    display: inline-block;
+}
+
+.search-box input::placeholder {
+    color: black;
+}
+
+.header .search-box input {
+    background: rgba(255,255,255,0.15);
+    font-size: 18px;
+    border-radius: 20px;
+    border: 1.5px solid #000000;
+    padding: 8px 16px;
+    outline: none;
+    color: #ffffff;
+    transition: background 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding-right: 32px;
+}
+
+.header .search input:focus {
+    background: rgba(255,255,255,0.25);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.search-box i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #080808;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/login.jpg');
+    background-size: cover;
+}
+
+.home {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 75%;
+    height: 75%;
+    transform: translate(-50%, -50%);
+    background-image: url('../img/login-bg.jpg');
+    background-size: cover;
+    display: flex;
+    margin-top: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    border: none;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+    padding: 100px 0;
+    z-index: 2;
+    position: relative;
+    background: rgba(43, 43, 43, 0.623);
+    border-radius: 10px;
+}
+
+.content a {
+    position: relative;
+    text-decoration: none;
+    color: #fff;
+    font-size: 3e,;
+    font-weight: 700;
+    top: -40px;
+    left: 80px;
+}
+
+.content h2 {
+    font-size: 4em;
+    text-align: center;
+    color: #ffffff;
+}
+
+.content h3 {
+    font-size: 3em;
+    text-align: center;
+    color: #57ddff;
+}
+
+.content pre {
+    margin-top: 20px;
+    font-size: 2em;
+    text-align: center;
+    color: #ffffff;
+
+}
+
+.content .icon{
+    margin-top: 40px;
+    font-size: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content .icon i {
+    color: #ffffff;
+    margin-right: 20px;
+    transform: translate(-80px, 20px);
+}
+
+.content .icon i:hover {
+    color: #57ddff;
+    transition: 0.3s ease-in-out;
+}
+
+.register {
+    width: 450px;
+    position: relative;
+    padding: 100px 30px;
+    backdrop-filter: blur(20px);
+}
+
+.register h2 {
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.register .input {
+    position: relative;
+    width: 100%;
+    height: 30px;
+    margin-bottom: 40px;
+}
+
+.register .input .input1 {
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-bottom: 1px solid #fff;
+    width: 100%;
+    height: 100%;
+}
+
+::placeholder {
+    color: #fff;
+    font-size: 18px;
+}
+
+.register .input i {
+    position: relative;
+    right: -370px;
+    bottom: 27px;
+    color: #fff;
+}
+
+.remember {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    color: #ffffff;
+}
+
+.remember a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.remember a:hover {
+    color: #57ddff;
+    transition: 0.3s ease-in-out;
+    text-decoration: underline;
+}
+
+.register button {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 15px;
+}
+
+
+button {
+    width: 100%;
+    height: 40px;
+    background-color: rgba(122, 246, 255, 0.671);
+    border: none;
+    border-radius: 7px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    outline: none;
+}
+
+.button a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 700;
+    display: block; 
+    width: 100%; 
+}
+
+button:hover {
+    background-color: rgba(6, 150, 253, 0.808);
+    transition: 0.3s ease-in-out;
+}
+
+button:active {
+    font-size: 25px;
+}
+
+.register .sign-up {
+    display: flex;
+    justify-content: center;
+}
+
+.register .sign-up a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 700;
+}
+
+.register .sign-up a:hover {
+    color: #57ddff;
+    transition: 0.3s ease-in-out;
+    text-decoration: underline;
+}
+  
+.register .sign-up p {
+    color: #fff;
+}
+.register .sign-up a:active {
+    font-size: 25px;
+}
+
