@@ -5,7 +5,10 @@ body, html {
 }
 
 .hero-img {
-    background-image: url('../../img/slide-1.jpg');
+    background-image: url('../../img/slide-1.jpg'), 
+                      url('../../img/slide-2.jpg'),
+                      url('../../img/slide-3.jpg');
+    background-attachment: fixed;
     width: 100%;
     height: 80vh; 
     display: flex;
@@ -31,6 +34,14 @@ body, html {
 .hero-text h1 {
     font-size: 90px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+}
+
+.hero-text h1 span {
+    font-size: 90px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+    color: #ce144c;
 }
 
 .hero-text p {
@@ -41,12 +52,12 @@ body, html {
 .hero-text button {
     margin-bottom: 10px;
     margin-top: 20px;
-    border: none;
+    border: 3px solid transparent;
     outline: 0;
     display: inline-block;
     padding: 10px 20px;
     color: rgb(0, 0, 0); 
-    background-color: #ffffff;
+    background-color: #ce144c;
     text-align: center;
     cursor: pointer;
     border-radius: 100px;
@@ -55,7 +66,7 @@ body, html {
 }
 
 .hero-img a {
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     text-decoration: none;
     font-size: 30px;
     font-family: 'Times New Roman';
@@ -63,6 +74,31 @@ body, html {
 }
 
 .hero-text button:hover {
-    background-color: #ff508ace;
+    background-color: #696666ce;
     transition: 0.3s ease-in-out;
+}
+
+.dots {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 20;
+}
+
+.dot {
+  height: 14px;
+  width: 14px;
+  background-color: transparent;
+  border: 2px solid rgb(0, 88, 122);
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background-color: rgb(255, 255, 255);
 }
