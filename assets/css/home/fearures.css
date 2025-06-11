@@ -1,0 +1,72 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.fearures {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 90px; 
+    padding: 50px 0;
+    max-width: 1300px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.fearures .fearuses-img {
+    display: flex;
+    flex-direction: column;     
+    align-items: center;        
+    gap: 16px;
+}
+
+.fearures .fearuses-img img {
+    width: 400px;
+    border-radius: 20px;
+}
+
+.fearuses-img img:hover {
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.4s ease-in-out;
+    transform: translateY(-4px);
+}
+
+.fearures .fearuses-img button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: none;
+    color: #000;
+
+}
+
+.fearures .fearuses-img button img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+    color: rgb(0, 0, 0); 
+    background-color: #ce144c;
+}
+
+.fearuses-img a {
+    display: inline-block;
+    padding: 12px 24px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 12px;
+    color: #ffffff;
+    background-color: #000000;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.fearuses-img a:hover {
+    background-color: #015186;
+    transform: translateY(-2px);
+}

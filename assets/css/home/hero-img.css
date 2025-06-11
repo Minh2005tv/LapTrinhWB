@@ -65,6 +65,7 @@ body, html {
     gap: 10px;
 }
 
+
 .hero-img a {
     color: rgb(255, 255, 255);
     text-decoration: none;
@@ -76,6 +77,7 @@ body, html {
 .hero-text button:hover {
     background-color: #696666ce;
     transition: 0.3s ease-in-out;
+    transform: translateY(-2px);
 }
 
 .dots {
