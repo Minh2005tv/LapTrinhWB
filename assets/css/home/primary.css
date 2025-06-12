@@ -1,0 +1,57 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.primary-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px; 
+    padding: 50px 0;
+    max-width: 1300px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.primary-text {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.primary-text h2 {
+    font-size: 50px;
+    color: #000000;
+    font-weight: bold;
+    margin: 0;
+}
+
+.primary-text p {
+    font-size: 20px;
+    color: #000000;
+    margin-top: 5px;
+    gap: 10px;
+}
+
+.primary-img {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    display: flex;
+}
+
+.primary-img img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+
+.primary-img img:hover {
+    box-shadow: 0 0px 10px rgb(66, 2, 2);
+    transition: box-shadow 0.4s ease-in-out;
+    transform: translateY(-4px);
+}

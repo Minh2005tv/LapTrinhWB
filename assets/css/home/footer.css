@@ -1,0 +1,103 @@
+.footer {
+    background: #111;
+    color: #f1f1f1;
+    padding: 40px 20px;
+    font-family: "Arial", sans-serif;
+}
+
+.footer a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* VÙNG THÔNG TIN PHÍA TRÊN (3 CỘT) */
+.footer-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.footer-box {
+    flex: 1 1 250px;
+}
+
+.footer-box h4 {
+    margin-bottom: 15px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.footer-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-box li {
+    margin-bottom: 8px;
+}
+
+/* Hotline nổi bật */
+.footer .hotline {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff4444;
+}
+
+/* Icon mạng xã hội */
+.socials img {
+    width: 28px;
+    margin-right: 10px;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.socials img:hover {
+    transform: scale(1.1);
+}
+
+/* VÙNG PHÍA DƯỚI - HỆ THỐNG CỬA HÀNG */
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid #444;
+    padding-top: 20px;
+}
+
+/* Tiêu đề hệ thống cửa hàng */
+.footer-bottom h3 {
+    color: #fff;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Danh sách chi nhánh */
+.footer-bottom .store-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;  /* 👉 Dàn đều 3 chi nhánh */
+    margin-top: 20px;
+    gap: 30px;
+    padding: 0 40px;
+}
+
+.footer-bottom .store-list div {
+    flex: 1 1 200px;
+    text-align: left;                /* 👉 Căn trái địa chỉ */
+    color: #f1f1f1;
+}
+
+.footer-bottom h5 {
+    color: #ffcc00;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
