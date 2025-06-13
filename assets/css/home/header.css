@@ -52,6 +52,8 @@
 .header .nav a:hover {
     color: #57ddff;
     transition: 0.3s ease-in-out;
+    transition: box-shadow 0.4s ease-in-out;
+    transform: translateY(-4px);
 }
 
 .search {
