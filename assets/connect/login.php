@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = mysqli_fetch_assoc($result);
         if (password_verify($password, $row['password'])) {
             $_SESSION['user'] = $row['phone'];
-            header("Location: ../pages/home/home.html");
+            header("Location: ../pages/home/home.php");
             exit();
         } else {
             echo "<script>alert('Sai mật khẩu'); window.history.back();</script>";
