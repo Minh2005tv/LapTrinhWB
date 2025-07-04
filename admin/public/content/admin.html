@@ -1,91 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Admin</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../public/style/admin.css">
+  <meta charset="UTF-8">
+  <title>Admin Product Panel</title>
+  <link rel="stylesheet" href="../style/admin.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <h1>Manage Product Tags</h1>
-    <form id="tagForm">
-        <label for="shoeName">Shoe Name</label>
-        <input type="text" id="shoeName" name="shoeName" required>
+  <div class="container">
+    <form id="product-form" action="../../controllers/admin.php" method="POST" enctype="multipart/form-data">
+      <div class="image-upload">
+        <div id="preview-images" class="images"></div>
+        <div class="add-img">
+          <label for="image-input" style="cursor:pointer;color:#1976d2;font-weight:bold;">Thêm IMG</label>
+          <input type="file" id="image-input" name="images[]" accept="image/*" multiple style="display:none;">
+          <span class="img-icon" style="cursor:pointer;" onclick="document.getElementById('image-input').click();">
+            <i class='bx bx-image'></i>
+          </span>
+        </div>
+      </div>
+      <input type="hidden" name="sizes_raw" id="sizes_raw">
+      <input type="hidden" name="add_product" value="1">
+      <input type="hidden" name="color" id="color_input">
 
-        <label for="color">Color</label>
-        <input type="text" id="color" name="color" required>
+      <div class="field">
+        <label>Shoe Name</label>
+        <input type="text" name="name" id="name" required>
+      </div>
+      <div class="field">
+        <label>Shoe Type</label>
+        <input type="text" name="type" id="type" required>
+      </div>
+      <div class="field">
+        <label>Price ($)</label>
+        <input type="number" step="0.01" name="price" id="price" required>
+      </div>
 
-        <label for="shoeType">Shoe Type</label>
-        <select id="shoeType" name="shoeType" required>
-            <option value="">Select Type</option>
-            <option value="men">Men</option>
-            <option value="women">Women</option>
-            <option value="children">Children</option>
-        </select>
+      <div class="flex-row">
+        <label>Size</label>
+        <div id="size-tags" class="tag-box"></div>
+        <input type="text" id="size-input" placeholder="Enter size and press Enter">
+      </div>
 
-        <label for="brand">Brand</label>
-        <select id="brand" name="brand" required>
-            <option value="">Select Brand</option>
-            <option value="Nike">Nike</option>
-            <option value="Adidas">Adidas</option>
-            <option value="Puma">Puma</option>
-            <option value="Reebok">Reebok</option>
-            <option value="New Balance">New Balance</option>
-            <option value="Other">Other</option>
-        </select>
+      <div class="flex-row">
+        <label>Color</label>
+        <div id="color-tags" class="tag-box"></div>
+        <input type="text" id="color-input-field" placeholder="Enter color and press Enter">
+      </div>
 
-        <label for="shoeSize">Shoe Size</label>
-        <input type="checkbox">Remember me</label>
-
-        <label for="price">Price ($)</label>
-        <input type="number" id="price" name="price" min="0" step="0.01" required>
-
-        <button type="submit">Add Tag</button>
+      <div class="buttons">
+        <button type="submit" class="add-btn">Add</button>
+        <button type="reset" class="cancel-btn">Cancel</button>
+      </div>
     </form>
 
-    <table id="tagsTable">
-        <thead>
-            <tr>
-                <th>Shoe Name</th>
-                <th>Color</th>
-                <th>Shoe Type</th>
-                <th>Brand</th>
-                <th>Shoe Size</th>
-                <th>Price ($)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Product tags will be added here -->
-        </tbody>
+    <h3>Products</h3>
+    <table class="product-table" id="product-table">
+      <thead>
+        <tr>
+          <th>IMG</th>
+          <th>Shoe Name</th>
+          <th>Shoe Type</th>
+          <th>Size</th>
+          <th>Color</th>
+          <th>Price ($)</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody></tbody>
     </table>
+  </div>
 
-    <script>
-        const tagForm = document.getElementById('tagForm');
-        const tagsTableBody = document.querySelector('#tagsTable tbody');
-
-        tagForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const shoeName = document.getElementById('shoeName').value;
-            const color = document.getElementById('color').value;
-            const shoeType = document.getElementById('shoeType').value;
-            const brand = document.getElementById('brand').value;
-            const shoeSize = document.getElementById('shoeSize').value;
-            const price = document.getElementById('price').value;
-
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${shoeName}</td>
-                <td>${color}</td>
-                <td>${shoeType}</td>
-                <td>${brand}</td>
-                <td>${shoeSize}</td>
-                <td>${parseFloat(price).toFixed(2)}</td>
-            `;
-            tagsTableBody.appendChild(row);
-
-            tagForm.reset();
-        });
-    </script>
+  <script src="../js/admin.js"></script>
 </body>
 </html>
