@@ -1,10 +1,10 @@
 :root {
-  --primary-color: #3b82f6;
-  --primary-dark: #1d4ed8;
-  --neutral-light: #f9fafb;
-  --neutral-mid: #e5e7eb;
-  --neutral-dark: #374151;
-  --bg-glass: rgba(255, 255, 255, 0.8);
+  --primary-color: #1abc9c;
+  --primary-dark: #16a085;
+  --neutral-light: #ecf0f1;
+  --neutral-mid: #bdc3c7;
+  --neutral-dark: #2c3e50;
+  --bg-glass: rgba(236, 240, 241, 0.9);
   --shadow-main: 0 8px 30px rgba(0, 0, 0, 0.12);
   --radius-main: 12px;
   --transition: 0.3s ease;
@@ -18,8 +18,8 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: linear-gradient(135deg, #dbeafe, #f0f9ff);
-  padding: 40px;
+  background: linear-gradient(135deg, #e8ecef, #f0f4f7);
+  padding: 20px;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -32,7 +32,6 @@ body {
   padding: 30px;
   border-radius: var(--radius-main);
   box-shadow: var(--shadow-main);
-  backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   transition: transform var(--transition), box-shadow var(--transition);
   overflow-x: auto;
@@ -86,13 +85,13 @@ body {
   border-radius: 50%;
   padding: 4px;
   font-size: 14px;
-  color: #ef4444;
+  color: #e74c3c;
   cursor: pointer;
   transition: background var(--transition), color var(--transition);
 }
 
 .delete-icon:hover {
-  background: #ef4444;
+  background: #e74c3c;
   color: #ffffff;
 }
 
@@ -137,7 +136,8 @@ label {
 
 input[type="text"],
 input[type="number"],
-input[type="file"] {
+input[type="file"],
+input[type="datetime-local"] {
   width: 100%;
   padding: 12px 14px;
   border-radius: 8px;
@@ -150,7 +150,7 @@ input[type="file"] {
 input:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+  box-shadow: 0 0 0 4px rgba(26, 188, 156, 0.15);
 }
 
 /* ============================== Tags ============================== */
@@ -162,7 +162,7 @@ input:focus {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  background: #f0f9ff;
+  background: #e8ecef;
   padding: 12px;
   border-radius: 8px;
   border: 1px solid var(--neutral-mid);
@@ -170,7 +170,7 @@ input:focus {
 }
 
 .tag {
-  background: #dbeafe;
+  background: #d5e8e6;
   color: var(--primary-dark);
   padding: 8px 12px;
   border-radius: 50px;
@@ -181,7 +181,7 @@ input:focus {
 }
 
 .tag:hover {
-  background: #bfdbfe;
+  background: #c2dede;
   transform: scale(1.05);
 }
 
@@ -213,11 +213,11 @@ button {
 }
 
 .cancel-btn {
-  background-color: #9ca3af;
+  background-color: #e74c3c;
 }
 
 .cancel-btn:hover {
-  background-color: #6b7280;
+  background-color: #c0392b;
   transform: translateY(-2px);
 }
 
@@ -248,8 +248,8 @@ h3 {
 }
 
 .product-table th {
-  background: #f1f5f9;
-  color: #111827;
+  background: var(--primary-color);
+  color: white;
 }
 
 .product-table tr:hover {
@@ -278,6 +278,7 @@ h3 {
     padding: 10px;
   }
 }
+
 /* ============================== Action Menu (⋮) ============================== */
 .dropdown {
   position: relative;
@@ -315,7 +316,7 @@ h3 {
 }
 
 .dropdown-content div:hover {
-  background-color: #f0f9ff;
+  background-color: #e8ecef;
   color: var(--primary-dark);
 }
 

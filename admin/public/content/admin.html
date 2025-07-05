@@ -8,100 +8,96 @@
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-  <!--Menu Admin-->
-    <div class="sidebar" id="sidebar">
+  <!-- Menu Admin -->
+  <div class="sidebar" id="sidebar">
     <div class="logo">Admin</div>
     <ul>
-      <li><i class="fas fa-home"></i><span>Dashboard</span></li>
-      <li><i class="fas fa-box"></i><span>Quản lý sản phẩm</span></li>
-      <li><i class="fas fa-shopping-cart"></i><span>Đơn hàng</span></li>
-      <li><i class="fas fa-cog"></i><span>Cài đặt</span></li>
-      <li><i class="fas fa-sign-out-alt"></i><span>Đăng xuất</span></li>
+      <li style="background-color: #34495e;"><i class='bx bx-home'></i><span>Dashboard</span></li>
+      <li><i class='bx bx-box'></i><span>Quản lý sản phẩm</span></li>
+      <li><i class='bx bx-cart'></i><span>Đơn hàng</span></li>
+      <li><i class='bx bx-cog'></i><span>Cài đặt</span></li>
+      <li><i class='bx bx-log-out'></i><span>Đăng xuất</span></li>
     </ul>
   </div>
-   <div class="main-content">
+  <div class="main-content">
     <button class="toggle-btn" onclick="toggleSidebar()">☰ Menu</button>
+    <div class="container">
+      <form id="product-form" action="../../controllers/admin.php" method="POST" enctype="multipart/form-data">
+        <div class="image-upload">
+          <div id="preview-images" class="images"></div>
+          <div class="add-img">
+            <label for="image-input" style="cursor:pointer;color:#1976d2;font-weight:bold;">Thêm IMG</label>
+            <input type="file" id="image-input" name="images[]" accept="image/*" multiple style="display:none;">
+            <span class="img-icon" style="cursor:pointer;" onclick="document.getElementById('image-input').click();">
+              <i class='bx bx-image'></i>
+            </span>
+          </div>
+        </div>
+        <input type="hidden" name="sizes_raw" id="sizes_raw">
+        <input type="hidden" name="add_product" value="1">
+        <input type="hidden" name="color" id="color_input">
+
+        <div class="field">
+          <label style="color: #2c3e50;">Shoe Name</label>
+          <input type="text" name="name" id="name" required style="border-color: #2c3e50;">
+        </div>
+        <div class="field">
+          <label style="color: #2c3e50;">Shoe Type</label>
+          <input type="text" name="type" id="type" required style="border-color: #2c3e50;">
+        </div>
+        <div class="field">
+          <label style="color: #2c3e50;">Price ($)</label>
+          <input type="number" step="0.01" name="price" id="price" required style="border-color: #2c3e50;">
+        </div>
+
+        <div class="flex-row">
+          <label style="color: #2c3e50;">Size</label>
+          <div id="size-tags" class="tag-box"></div>
+          <input type="text" id="size-input" placeholder="Enter size and press Enter" style="border-color: #2c3e50;">
+        </div>
+
+        <div class="flex-row">
+          <label style="color: #2c3e50;">Color</label>
+          <div id="color-tags" class="tag-box"></div>
+          <input type="text" id="color-input-field" placeholder="Enter color and press Enter" style="border-color: #2c3e50;">
+        </div>
+
+        <div class="field">
+          <label style="color: #2c3e50;">Date & Time</label>
+          <input type="datetime-local" name="date_time" id="date_time" style="border-color: #2c3e50;">
+        </div>
+
+        <div class="field">
+          <label style="color: #2c3e50;">Sales</label>
+          <input type="number" name="sales" id="sales" min="0" style="border-color: #2c3e50;">
+        </div>
+
+        <div class="buttons">
+          <button type="submit" class="add-btn" style="background-color: #1abc9c;">Add</button>
+          <button type="reset" class="cancel-btn" style="background-color: #e74c3c;">Cancel</button>
+        </div>
+      </form>
+
+      <h3 style="color: #2c3e50;">Products</h3>
+      <table class="product-table" id="product-table">
+        <thead>
+          <tr>
+            <th style="background-color: #1abc9c; color: white;">IMG</th>
+            <th style="background-color: #1abc9c; color: white;">Shoe Name</th>
+            <th style="background-color: #1abc9c; color: white;">Shoe Type</th>
+            <th style="background-color: #1abc9c; color: white;">Size</th>
+            <th style="background-color: #1abc9c; color: white;">Color</th>
+            <th style="background-color: #1abc9c; color: white;">Price ($)</th>
+            <th style="background-color: #1abc9c; color: white;">Date & Time</th>
+            <th style="background-color: #1abc9c; color: white;">Sales</th>
+            <th style="background-color: #1abc9c; color: white;"></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </div>
   <script src="../js/menu-admin.js"></script>
-  <!--Menu Admin-->
-
-
-  <div class="container">
-    <form id="product-form" action="../../controllers/admin.php" method="POST" enctype="multipart/form-data">
-      <div class="image-upload">
-        <div id="preview-images" class="images"></div>
-        <div class="add-img">
-          <label for="image-input" style="cursor:pointer;color:#1976d2;font-weight:bold;">Thêm IMG</label>
-          <input type="file" id="image-input" name="images[]" accept="image/*" multiple style="display:none;">
-          <span class="img-icon" style="cursor:pointer;" onclick="document.getElementById('image-input').click();">
-            <i class='bx bx-image'></i>
-          </span>
-        </div>
-      </div>
-      <input type="hidden" name="sizes_raw" id="sizes_raw">
-      <input type="hidden" name="add_product" value="1">
-      <input type="hidden" name="color" id="color_input">
-
-      <div class="field">
-        <label>Shoe Name</label>
-        <input type="text" name="name" id="name" required>
-      </div>
-      <div class="field">
-        <label>Shoe Type</label>
-        <input type="text" name="type" id="type" required>
-      </div>
-      <div class="field">
-        <label>Price ($)</label>
-        <input type="text" step="0.01" name="price" id="price" required>
-      </div>
-
-      <div class="flex-row">
-        <label>Size</label>
-        <div id="size-tags" class="tag-box"></div>
-        <input type="text" id="size-input" placeholder="Enter size and press Enter">
-      </div>
-
-      <div class="flex-row">
-        <label>Color</label>
-        <div id="color-tags" class="tag-box"></div>
-        <input type="text" id="color-input-field" placeholder="Enter color and press Enter">
-      </div>
-
-      <div class="field">
-        <label>Date & Time</label>
-        <input type="datetime-local" name="date_time" id="date_time">
-      </div>
-
-      <div class="field">
-        <label>Sales</label>
-        <input type="text" name="sales" id="sales" min="0">
-      </div>
-
-      <div class="buttons">
-        <button type="submit" class="add-btn">Add</button>
-        <button type="reset" class="cancel-btn">Cancel</button>
-      </div>
-    </form>
-
-    <h3>Products</h3>
-    <table class="product-table" id="product-table">
-      <thead>
-        <tr>
-          <th>IMG</th>
-          <th>Shoe Name</th>
-          <th>Shoe Type</th>
-          <th>Size</th>
-          <th>Color</th>
-          <th>Price ($)</th>
-          <th>Date & Time</th>
-          <th>Sales</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-
   <script src="../js/admin.js"></script>
 </body>
 </html>

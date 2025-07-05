@@ -43,3 +43,16 @@ CREATE TABLE IF NOT EXISTS product_images (
 ALTER TABLE products 
 ADD COLUMN date_time DATETIME NULL,
 ADD COLUMN sales INT NULL;
+
+CREATE TABLE giay (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ten_san_pham VARCHAR(255),
+    thuong_hieu VARCHAR(100),
+    gia DECIMAL(10, 2),
+    mo_ta TEXT,
+    kich_co VARCHAR(50),
+    mau_sac VARCHAR(50),
+    chat_lieu VARCHAR(100),
+    tinh_trang VARCHAR(50),
+    hinh_anh VARCHAR(255)
+);
