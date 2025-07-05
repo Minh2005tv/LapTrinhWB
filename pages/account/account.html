@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Xem đơn hàng</title>
+  <link rel="stylesheet" href="../../assets/css/home/account.css">
+</head>
+<body>
+  <div class="sidebar">
+    <div class="profile-pic"></div>
+    <button class="menu-button active" onclick="showContent('layhang', this)">📦 Chờ lấy hàng</button>
+    <button class="menu-button" onclick="showContent('giaohang', this)">🚚 Chờ giao hàng</button>
+    <button class="menu-button" onclick="showContent('danhgia', this)">⭐ Đánh giá</button>
+    <button class="logout">LOG OUT</button>
+  </div>
+
+  <div class="content">
+    <div id="layhang" class="content-tab">
+      <div class="item">
+        <img alt="sp">
+        <span>Sản phẩm đang chờ lấy - A</span>
+        <span class="icon">➡️</span>
+      </div>
+      <div class="item">
+        <img alt="sp">
+        <span>Sản phẩm đang chờ lấy - B</span>
+        <span class="icon">➡️</span>
+      </div>
+    </div>
+
+    <div id="giaohang" class="content-tab" style="display:none;">
+      <div class="item">
+        <img alt="sp">
+        <span>Đơn hàng đang giao - C</span>
+        <span class="icon">➡️</span>
+      </div>
+      <div class="item">
+        <img alt="sp">
+        <span>Đơn hàng đang giao - D</span>
+        <span class="icon">➡️</span>
+      </div>
+    </div>
+
+    <div id="danhgia" class="content-tab" style="display:none;">
+      <div class="item">
+        <img alt="sp">
+        <span>Hãy đánh giá sản phẩm E</span>
+        <span class="icon">✍️</span>
+      </div>
+      <div class="item">
+        <img alt="sp">
+        <span>Hãy đánh giá sản phẩm F</span>
+        <span class="icon">✍️</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showContent(tabId, btn) {
+      // Ẩn tất cả các tab
+      document.querySelectorAll('.content-tab').forEach(tab => tab.style.display = 'none');
+      // Hiện tab được chọn
+      document.getElementById(tabId).style.display = 'block';
+
+      // Reset active class
+      document.querySelectorAll('.menu-button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+  // Hiển thị sản phẩm đã đặt mua ở tab "Chờ lấy hàng"
+  window.onload = function() {
+    const ordered = JSON.parse(localStorage.getItem('orderedProducts') || '[]');
+    const layhangTab = document.getElementById('layhang');
+    if (ordered.length > 0) {
+      layhangTab.innerHTML = '';
+      ordered.forEach(function(item) {
+        layhangTab.innerHTML += `
+          <div class="item">
+            <img src="${item.img}" alt="sp" style="width:60px;height:60px;object-fit:cover;">
+            <span>${item.title} - Size: ${item.size} - SL: ${item.quantity} - Giá: ${item.price}</span>
+            <span class="icon">Đang chờ lấy hàng</span>
+          </div>
+        `;
+      });
+
+// Xác nhận khi log out
+document.querySelector('.logout').onclick = function() {
+  if (confirm('Bạn có chắc muốn log out không?')) {
+    window.location.href = '../home/home.html';
+  }
+};
+    }
+  }
+  </script>
+</body>
+</html>
