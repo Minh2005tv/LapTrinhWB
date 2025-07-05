@@ -111,11 +111,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     let row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${p.images && p.images[0] ? `<img src="/Website_Selling sports shoes/${p.images[0]}" style="width:50px">` : ''}</td>
-                        <td>${p.name}</td>
-                        <td>${p.type}</td>
+                        <td>${p.name || ''}</td>
+                        <td>${p.type || ''}</td>
                         <td>${(p.sizes || []).join(', ')}</td>
                         <td>${(p.colors || []).join(', ')}</td>
-                        <td>${p.price.toLocaleString('vi-VN') || ''}</td>
+                        <td>${p.price?.toLocaleString('vi-VN') || ''}</td>
+                        <td>${p.date_time || ''}</td>
+                        <td>${p.sales ?? ''}</td>
                         <td>
                             <div class="dropdown">
                                 <span class="menu-btn">⋮</span>
@@ -143,6 +145,13 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('sizes_raw').value = JSON.stringify(sizes);
         document.getElementById('color_input').value = JSON.stringify(colors);
 
+        const dateTime = form.date_time.value.trim();
+        const sales = form.sales.value.trim();
+
+        if ((dateTime && !sales) || (!dateTime && sales)) {
+            return alert('Nếu nhập "Date & Time" thì phải nhập cả "Sales", và ngược lại.');
+        }
+
         const formData = new FormData();
         formData.append('name', form.name.value);
         formData.append('type', form.type.value);
@@ -150,6 +159,8 @@ document.addEventListener('DOMContentLoaded', function () {
         formData.append('add_product', '1');
         formData.append('sizes_raw', JSON.stringify(sizes));
         formData.append('color', JSON.stringify(colors));
+        formData.append('date_time', dateTime);
+        formData.append('sales', sales);
         selectedImages.forEach(file => formData.append('images[]', file));
 
         fetch(form.action, {

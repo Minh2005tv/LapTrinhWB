@@ -1,7 +1,8 @@
 <?php
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Kết nối CSDL
 function getDb() {
     $host = 'localhost';
@@ -32,7 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
     $sizes = json_decode($_POST['sizes_raw'] ?? '[]');
     $colors = json_decode($_POST['color'] ?? '[]');
 
-    // Validate dữ liệu
+    $date_time = $_POST['date_time'] ?? null;
+    $sales = $_POST['sales'] ?? null;
+
+    // Validate
     if ($name === '' || $type === '') response(false, 'Tên và loại không được để trống');
     if (!is_numeric($price) || $price <= 0) response(false, 'Giá phải là số > 0');
     if (!is_array($sizes) || count($sizes) == 0 || count($sizes) > 5) response(false, 'Size tối đa 5');
@@ -40,7 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
     foreach ($sizes as $sz) if (!is_numeric($sz) || $sz <= 0) response(false, 'Size phải là số dương');
     foreach ($colors as $cl) if (trim($cl) === '') response(false, 'Màu không được rỗng');
 
-    // Validate ảnh
     if (!isset($_FILES['images']) || count($_FILES['images']['name']) == 0) response(false, 'Phải chọn ít nhất 1 ảnh');
     $allowed = ['image/jpeg', 'image/png', 'image/webp'];
     $image_urls = [];
@@ -48,18 +51,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
         $type_img = $_FILES['images']['type'][$i];
         if (!in_array($type_img, $allowed)) response(false, 'Ảnh không đúng định dạng');
         $ext = pathinfo($_FILES['images']['name'][$i], PATHINFO_EXTENSION);
-        $newname = uniqid('img_').'.'.$ext;
-        $dest = '../../uploads/'.$newname;
+        $newname = uniqid('img_') . '.' . $ext;
+        $dest = '../../uploads/' . $newname;
         if (!move_uploaded_file($tmp, $dest)) response(false, 'Lỗi upload ảnh');
-        $image_urls[] = 'uploads/'.$newname;
+        $image_urls[] = 'uploads/' . $newname;
     }
 
-    // Lưu vào DB
+    // Validate promotion logic
+    if (($date_time && !$sales) || (!$date_time && $sales)) {
+        response(false, 'Nếu đã nhập "Date & Time" thì phải nhập cả "Sales", và ngược lại.');
+    }
+
+    // Save to DB
     $pdo = getDb();
     $pdo->beginTransaction();
     try {
-        $stmt = $pdo->prepare("INSERT INTO products (name, type, price) VALUES (?, ?, ?)");
-        $stmt->execute([$name, $type, $price]);
+        $stmt = $pdo->prepare("INSERT INTO products (name, type, price, date_time, sales) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$name, $type, $price, $date_time ?: null, $sales ?: null]);
         $pid = $pdo->lastInsertId();
 
         $stmt = $pdo->prepare("INSERT INTO product_sizes (product_id, size) VALUES (?, ?)");
@@ -75,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
         response(true, 'Thêm sản phẩm thành công');
     } catch (Exception $e) {
         $pdo->rollBack();
-        response(false, 'Lỗi: '.$e->getMessage());
+        response(false, 'Lỗi: ' . $e->getMessage());
     }
 }
 ?>

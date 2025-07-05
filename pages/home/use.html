@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Menu Sidebar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #2c3e50;
+      color: white;
+      transition: width 0.3s;
+      overflow: hidden;
+    }
+
+    .sidebar.collapsed {
+      width: 70px;
+    }
+
+    .sidebar .logo {
+      padding: 20px;
+      font-size: 22px;
+      font-weight: bold;
+      text-align: center;
+      background-color: #1abc9c;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      padding: 15px 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .sidebar ul li:hover {
+      background-color: #34495e;
+    }
+
+    .sidebar ul li i {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .sidebar.collapsed ul li span {
+      display: none;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      background-color: #ecf0f1;
+    }
+
+    .toggle-btn {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background-color: #1abc9c;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar" id="sidebar">
+    <div class="logo">Admin</div>
+    <ul>
+      <li><i class="fas fa-home"></i><span>Dashboard</span></li>
+      <li><i class="fas fa-user"></i><span>Quản lý người dùng</span></li>
+      <li><i class="fas fa-box"></i><span>Quản lý sản phẩm</span></li>
+      <li><i class="fas fa-shopping-cart"></i><span>Đơn hàng</span></li>
+      <li><i class="fas fa-chart-line"></i><span>Thống kê</span></li>
+      <li><i class="fas fa-cog"></i><span>Cài đặt</span></li>
+      <li><i class="fas fa-sign-out-alt"></i><span>Đăng xuất</span></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <button class="toggle-btn" onclick="toggleSidebar()">☰ Menu</button>
+    <h1>Chào mừng đến với trang quản trị</h1>
+    <p>Nội dung chính ở đây...</p>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('collapsed');
+    }
+  </script>
+
+</body>
+</html>

@@ -39,3 +39,7 @@ CREATE TABLE IF NOT EXISTS product_images (
     image_url VARCHAR(255) NOT NULL,
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
+
+ALTER TABLE products 
+ADD COLUMN date_time DATETIME NULL,
+ADD COLUMN sales INT NULL;

@@ -322,3 +322,14 @@ h3 {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+.product-table td {
+  border: 1px solid var(--neutral-mid);
+  min-height: 50px;
+}
+
+.product-table td:last-child {
+  width: 60px;
+  text-align: center;
+  vertical-align: middle;
+}
