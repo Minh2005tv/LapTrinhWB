@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đánh Giá - Shoe Haven</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff6f61, #6b48ff, #ff9a9e);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background 0.3s;
+        }
+
+        .header:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .header .logo {
+            font-size: 28px;
+            font-weight: 600;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(255, 111, 97, 0.8);
+            transition: text-shadow 0.3s;
+        }
+
+        .header .logo:hover {
+            text-shadow: 0 0 25px rgba(255, 111, 97, 1);
+        }
+
+        .hamburger {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .hamburger:hover {
+            color: #ff6f61;
+            transform: rotate(90deg);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px 20px;
+            position: fixed;
+            height: 100%;
+            transform: translateX(-100%);
+            transition: transform 0.5s ease, background 0.3s;
+            z-index: 1001;
+            border-right: 1px solid rgba(255, 111, 97, 0.3);
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .sidebar img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid #ff6f61;
+            margin-bottom: 30px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 0 20px rgba(255, 111, 97, 0.7);
+            transition: transform 0.5s, box-shadow 0.3s;
+        }
+
+        .sidebar img:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 30px rgba(255, 111, 97, 1);
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            transition: background 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar a i {
+            margin-right: 15px;
+            font-size: 18px;
+            transition: transform 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: linear-gradient(90deg, #ff6f61, #6b48ff);
+            color: #fff;
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(255, 111, 97, 0.5);
+        }
+
+        .sidebar a:hover i {
+            transform: scale(1.2);
+        }
+
+        .sidebar .logout {
+            background: #6b48ff;
+            text-align: center;
+            margin-top: 40px;
+            padding: 15px;
+            border-radius: 10px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .sidebar .logout:hover {
+            background: #5a3ed9;
+            transform: scale(1.05);
+        }
+
+        /* Content */
+        .content {
+            margin-left: 0;
+            padding: 30px 30px;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            transition: padding 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .content:hover {
+            padding: 40px 40px;
+        }
+
+        .review-form {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border: 2px solid rgba(255, 111, 97, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 70%; /* Thêm chiều cao để căn giữa dọc */
+            animation: bounceIn 0.7s ease-out;
+        }
+
+        @keyframes bounceIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .review-form h2 {
+            font-size: 32px;
+            color: #fff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(255, 111, 97, 0.8);
+            transition: text-shadow 0.3s;
+        }
+
+        .review-form h2:hover {
+            text-shadow: 0 0 25px rgba(255, 111, 97, 1);
+        }
+
+        .review-form label {
+            display: block;
+            margin: 15px 0 5px;
+            color: #fff;
+            font-size: 16px;
+            transition: transform 0.3s, text-shadow 0.3s;
+        }
+
+        .review-form label:hover {
+            transform: translateX(5px);
+            text-shadow: 0 0 5px rgba(255, 111, 97, 0.8);
+        }
+
+        .review-form input, .review-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 5px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+        }
+
+        .review-form input:focus, .review-form textarea:focus {
+            border-color: #ff6f61;
+            box-shadow: 0 0 10px rgba(255, 111, 97, 0.5);
+            transform: scale(1.05);
+        }
+
+        .review-form textarea {
+            height: 100px;
+        }
+
+        .review-form button {
+            background: #6b48ff;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .review-form button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(107, 72, 255, 0.7);
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.7);
+            text-align: center;
+            padding: 15px;
+            margin-left: 0;
+            border-top: 1px solid rgba(255, 111, 97, 0.3);
+            color: #fff;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .footer:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.05);
+        }
+
+        /* Background Shoes */
+        .shoe-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .shoe-bg img {
+            width: 200px;
+            height: auto;
+            position: absolute;
+            animation: floatAndRotate 8s infinite ease-in-out;
+            transition: transform 0.3s;
+        }
+
+        .shoe-bg img:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        @keyframes floatAndRotate {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .content {
+                margin-left: 250px;
+            }
+            .footer {
+                margin-left: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .review-form {
+                width: 90%;
+                height: 80%;
+            }
+            .shoe-bg img {
+                width: 150px;
+            }
+        }
+        .content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin-left: 0; /* nếu bạn muốn bỏ khoảng trống bên trái */
+}
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="hamburger"><i class="fas fa-bars"></i></div>
+        <div class="logo">Shop</div>
+    </div>
+
+    <div class="sidebar">
+        <img src="../hình/image.png" alt="User Avatar">
+        <a href="account.html"><i class="fas fa-user"></i> Tài Khoản</a>
+        <a href="cart.html"><i class="fas fa-shopping-cart"></i> Giỏ Hàng</a>
+        <a href="order.html"><i class="fas fa-box"></i> Đơn Hàng</a>
+        <a href="review.html"><i class="fas fa-star"></i> Đánh Giá</a>
+        <a href="#" class="logout"><i class="fas fa-sign-out-alt"></i> Đăng Xuất</a>
+    </div>
+
+    <div class="content">
+        <div class="review-form">
+            <h2>Đánh Giá Sản Phẩm</h2>
+            <label for="product">Sản phẩm:</label>
+            <input type="text" id="product" value="Giày Thể Thao X1">
+            <label for="comment">Nhận xét:</label>
+            <textarea id="comment" placeholder="Viết nhận xét của bạn..."></textarea>
+            <button>Gửi đánh giá</button>
+        </div>
+
+        <div class="shoe-bg">
+            <img src="../hình/image copy 3.png" alt="Shoe 1" style="top: 5%; left: 5%;">
+            <img src="../hình/image copy 2.png" alt="Shoe 2" style="top: 40%; right: 5%;">
+            <img src="../hình/image copy.png" alt="Shoe 3" style="bottom: 5%; left: 10%;"></div>
+    </div>
+
+    <div class="footer">© 2025 Shoe Haven</div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Toggle sidebar
+            $('.hamburger').click(function() {
+                $('.sidebar').toggleClass('active');
+                $(this).toggleClass('active');
+                if ($(this).hasClass('active')) {
+                    $(this).css('transform', 'rotate(90deg)');
+                } else {
+                    $(this).css('transform', 'rotate(0deg)');
+                }
+            });
+
+            // Hover effects on sidebar links
+            $('.sidebar a').hover(
+                function() {
+                    $(this).css({
+                        'background': 'linear-gradient(90deg, #ff6f61, #6b48ff)',
+                        'color': '#fff',
+                        'transform': 'translateX(10px)',
+                        'box-shadow': '0 5px 15px rgba(255, 111, 97, 0.5)'
+                    });
+                    $(this).find('i').css('transform', 'scale(1.2)');
+                },
+                function() {
+                    if (!$(this).hasClass('active-link')) {
+                        $(this).css({
+                            'background': 'transparent',
+                            'color': '#fff',
+                            'transform': 'translateX(0)',
+                            'box-shadow': 'none'
+                        });
+                        $(this).find('i').css('transform', 'scale(1)');
+                    }
+                }
+            );
+
+            // Move shoes randomly
+            function moveShoes() {
+                $('.shoe-bg img').each(function() {
+                    let top = Math.random() * 80 + '%';
+                    let left = Math.random() * 80 + '%';
+                    $(this).css({ top: top, left: left });
+                });
+            }
+            setInterval(moveShoes, 6000);
+
+            // Hover effect on shoes
+            $('.shoe-bg img').hover(
+                function() {
+                    $(this).css('transform', 'scale(1.1) rotate(10deg)');
+                },
+                function() {
+                    $(this).css('transform', 'scale(1) rotate(0deg)');
+                }
+            );
+
+            // Hover effects on form elements
+            $('.review-form label').hover(
+                function() {
+                    $(this).css({
+                        'transform': 'translateX(5px)',
+                        'text-shadow': '0 0 5px rgba(255, 111, 97, 0.8)'
+                    });
+                },
+                function() {
+                    $(this).css({
+                        'transform': 'translateX(0)',
+                        'text-shadow': 'none'
+                    });
+                }
+            );
+
+            $('.review-form input, .review-form textarea').focus(function() {
+                $(this).css({
+                    'border-color': '#ff6f61',
+                    'box-shadow': '0 0 10px rgba(255, 111, 97, 0.5)',
+                    'transform': 'scale(1.05)'
+                });
+            }).blur(function() {
+                $(this).css({
+                    'border-color': 'rgba(255, 255, 255, 0.5)',
+                    'box-shadow': 'none',
+                    'transform': 'scale(1)'
+                });
+            });
+
+            $('.review-form button').hover(
+                function() {
+                    $(this).css({
+                        'transform': 'scale(1.1)',
+                        'box-shadow': '0 5px 15px rgba(107, 72, 255, 0.7)'
+                    });
+                },
+                function() {
+                    $(this).css({
+                        'transform': 'scale(1)',
+                        'box-shadow': 'none'
+                    });
+                }
+            );
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Quản lý tài khoản của bạn tại Shoe Haven - Giày thời trang cao cấp">
+    <title>Tài Khoản - Shoe Haven</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff6f61, #6b48ff, #ff9a9e);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        
+
+        /* Header */
+        .header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background 0.3s;
+        }
+
+        .header:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .header .logo {
+            font-size: 28px;
+            font-weight: 600;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(255, 111, 97, 0.8);
+            transition: text-shadow 0.3s;
+        }
+
+        .header .logo:hover {
+            text-shadow: 0 0 25px rgba(255, 111, 97, 1);
+        }
+
+        .hamburger {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .hamburger:hover {
+            color: #ff6f61;
+            transform: rotate(90deg);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px 20px;
+            position: fixed;
+            height: 100%;
+            transform: translateX(-100%);
+            transition: transform 0.5s ease, background 0.3s;
+            z-index: 1001;
+            border-right: 1px solid rgba(255, 111, 97, 0.3);
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .sidebar img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid #ff6f61;
+            margin-bottom: 30px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 0 20px rgba(255, 111, 97, 0.7);
+            transition: transform 0.5s, box-shadow 0.3s;
+        }
+
+        .sidebar img:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 30px rgba(255, 111, 97, 1);
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            transition: background 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar a i {
+            margin-right: 15px;
+            font-size: 18px;
+            transition: transform 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: linear-gradient(90deg, #ff6f61, #6b48ff);
+            color: #fff;
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(255, 111, 97, 0.5);
+        }
+
+        .sidebar a:hover i {
+            transform: scale(1.2);
+        }
+
+        .sidebar .logout {
+            background: #6b48ff;
+            text-align: center;
+            margin-top: 40px;
+            padding: 15px;
+            border-radius: 10px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .sidebar .logout:hover {
+            background: #5a3ed9;
+            transform: scale(1.05);
+        }
+
+        /* Content */
+        .content {
+            margin-left: 0;
+            padding: 30px 30px;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            transition: padding 0.3s;
+        }
+
+        .content:hover {
+            padding: 40px 40px;
+        }
+
+        .account-info {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 60px; /* Tăng padding để khung to hơn */
+            border-radius: 25px; /* Tăng độ cong viền */
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.3); /* Tăng bóng đổ */
+            max-width: 900px; /* Tăng chiều rộng */
+            width: 80%; /* Chiếm 80% chiều rộng màn hình */
+            margin: 0 auto; /* Căn giữa khung */
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .account-info:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 50px rgba(255, 111, 97, 0.5);
+        }
+
+        .account-info h2 {
+            font-size: 36px; /* Tăng kích thước tiêu đề */
+            color: #fff;
+            margin-bottom: 40px; /* Tăng khoảng cách dưới tiêu đề */
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px rgba(255, 111, 97, 0.8);
+            transition: text-shadow 0.3s;
+        }
+
+        .account-info h2:hover {
+            text-shadow: 0 0 30px rgba(255, 111, 97, 1);
+        }
+
+        .account-info .info-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px 30px; /* Tăng padding cho info-item */
+            margin: 20px 0; /* Tăng khoảng cách giữa các item */
+            border-radius: 15px;
+            font-size: 20px; /* Tăng kích thước chữ */
+            transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .account-info .info-item:hover {
+            transform: scale(1.05) rotate(2deg);
+            background: rgba(255, 111, 97, 0.3);
+            box-shadow: 0 5px 15px rgba(255, 111, 97, 0.5);
+        }
+
+        .account-info .info-item::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.1);
+            transition: width 0.3s;
+        }
+
+        .account-info .info-item:hover::after {
+            width: 100%;
+        }
+
+        .account-info button {
+            background: #6b48ff;
+            color: #fff;
+            border: none;
+            padding: 15px 40px; /* Tăng kích thước nút */
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 18px; /* Tăng kích thước chữ nút */
+            margin-top: 30px; /* Tăng khoảng cách trên nút */
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .account-info button:hover {
+            background: #5a3ed9;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(107, 72, 255, 0.7);
+        }
+
+        .account-info button:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 10px rgba(107, 72, 255, 0.5);
+        }
+
+        /* Background Shoes */
+        .shoe-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .shoe-bg img {
+            width: 250px; /* Tăng kích thước ảnh nền */
+            height: auto;
+            position: absolute;
+            animation: floatAndRotate 8s infinite ease-in-out;
+            transition: transform 0.3s;
+        }
+
+        .shoe-bg img:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        @keyframes floatAndRotate {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .content {
+                margin-left: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .account-info {
+                padding: 20px;
+                max-width: 90%; /* Điều chỉnh để phù hợp màn hình nhỏ */
+                width: 90%;
+            }
+
+            .account-info h2 {
+                font-size: 24px;
+            }
+
+            .shoe-bg img {
+                width: 150px; /* Giảm kích thước ảnh trên màn hình nhỏ */
+            }
+        }
+
+        .content {  display: flex;  justify-content: center;  align-items: center;  min-height: 100vh;  margin-left: 0; /* nếu bạn muốn bỏ khoảng trống bên trái */}
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="hamburger"><i class="fas fa-bars"></i></div>
+        <div class="logo">Shop</div>
+    </div>
+
+    <div class="sidebar">
+        <img src="../hình/image.png" alt="User Avatar">
+        <a href="account.html"><i class="fas fa-user"></i> Tài Khoản</a>
+        <a href="cart.html"><i class="fas fa-shopping-cart"></i> Giỏ Hàng</a>
+        <a href="order.html"><i class="fas fa-box"></i> Đơn Hàng</a>
+        <a href="review.html"><i class="fas fa-star"></i> Đánh Giá</a>
+        <a href="#" class="logout"><i class="fas fa-sign-out-alt"></i> Đăng Xuất</a>
+    </div>
+
+    <div class="content">
+        <div class="account-info">
+            <h2>Thông Tin Tài Khoản</h2>
+            <div class="info-item"><strong>Tên:</strong> Nguyễn Văn A</div>
+            <div class="info-item"><strong>Email:</strong> vana@example.com</div>
+            <div class="info-item"><strong>Số Điện Thoại:</strong> 0901234567</div>
+            <button id="editBtn">Chỉnh Sửa</button>
+        </div>
+
+        <div class="shoe-bg">
+            <img src="../hình/image copy 3.png" alt="Shoe 1" style="top: 5%; left: 5%;">
+            <img src="../hình/image copy 2.png" alt="Shoe 2" style="top: 40%; right: 5%;">
+            <img src="../hình/image copy.png" alt="Shoe 3" style="bottom: 5%; left: 10%;">
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Toggle sidebar
+            $('.hamburger').click(function() {
+                $('.sidebar').toggleClass('active');
+                $(this).toggleClass('active');
+                if ($(this).hasClass('active')) {
+                    $(this).css('transform', 'rotate(90deg)');
+                } else {
+                    $(this).css('transform', 'rotate(0deg)');
+                }
+            });
+
+            // Hover effects on sidebar links
+            $('.sidebar a').hover(
+                function() {
+                    $(this).css({
+                        'background': 'linear-gradient(90deg, #ff6f61, #6b48ff)',
+                        'color': '#fff',
+                        'transform': 'translateX(10px)',
+                        'box-shadow': '0 5px 15px rgba(255, 111, 97, 0.5)'
+                    });
+                    $(this).find('i').css('transform', 'scale(1.2)');
+                },
+                function() {
+                    if (!$(this).hasClass('active-link')) {
+                        $(this).css({
+                            'background': 'transparent',
+                            'color': '#fff',
+                            'transform': 'translateX(0)',
+                            'box-shadow': 'none'
+                        });
+                        $(this).find('i').css('transform', 'scale(1)');
+                    }
+                }
+            );
+
+            // Click effect on button
+            $('#editBtn').click(function() {
+                $(this).addClass('clicked');
+                setTimeout(() => $(this).removeClass('clicked'), 200);
+                alert('Chức năng chỉnh sửa sẽ được mở! (Thêm form tại đây)');
+            });
+
+            // Hover and click effect on account-info items
+            $('.info-item').hover(
+                function() {
+                    $(this).css({
+                        'transform': 'scale(1.05) rotate(2deg)',
+                        'background': 'rgba(255, 111, 97, 0.3)',
+                        'box-shadow': '0 5px 15px rgba(255, 111, 97, 0.5)'
+                    });
+                    $(this).find('.info-item::after').css('width', '100%');
+                },
+                function() {
+                    $(this).css({
+                        'transform': 'scale(1) rotate(0deg)',
+                        'background': 'rgba(255, 255, 255, 0.2)',
+                        'box-shadow': 'none'
+                    });
+                    $(this).find('.info-item::after').css('width', '0');
+                }
+            );
+
+            // Move shoes randomly
+            function moveShoes() {
+                $('.shoe-bg img').each(function() {
+                    let top = Math.random() * 80 + '%';
+                    let left = Math.random() * 80 + '%';
+                    $(this).css({ top: top, left: left });
+                });
+            }
+            setInterval(moveShoes, 6000);
+
+            // Hover effect on shoes
+            $('.shoe-bg img').hover(
+                function() {
+                    $(this).css('transform', 'scale(1.1) rotate(10deg)');
+                },
+                function() {
+                    $(this).css('transform', 'scale(1) rotate(0deg)');
+                }
+            );
+        });
+    </script>
+</body>
+</html>
