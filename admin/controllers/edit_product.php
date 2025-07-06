@@ -45,17 +45,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_product'])) {
     foreach ($sizes as $sz) if (!is_numeric($sz) || $sz <= 0) response(false, 'Size phải là số dương');
     foreach ($colors as $cl) if (trim($cl) === '') response(false, 'Màu không được rỗng');
 
+    // Validate promotion logic
+    if (($date_time && !$sales) || (!$date_time && $sales)) {
+        response(false, 'Nếu đã nhập "Date & Time" thì phải nhập cả "Sales", và ngược lại.');
+    }
+
     $pdo = getDb();
     $pdo->beginTransaction();
     try {
         $stmt = $pdo->prepare("UPDATE products SET name = ?, type = ?, price = ?, date_time = ?, sales = ? WHERE id = ?");
         $stmt->execute([$name, $type, $price, $date_time ?: null, $sales ?: null, $id]);
 
-        $pdo->exec("DELETE FROM product_sizes WHERE product_id = $id");
+        $pdo->query("DELETE FROM product_sizes WHERE product_id = $id");
         $stmt = $pdo->prepare("INSERT INTO product_sizes (product_id, size) VALUES (?, ?)");
         foreach ($sizes as $sz) $stmt->execute([$id, $sz]);
 
-        $pdo->exec("DELETE FROM product_colors WHERE product_id = $id");
+        $pdo->query("DELETE FROM product_colors WHERE product_id = $id");
         $stmt = $pdo->prepare("INSERT INTO product_colors (product_id, color) VALUES (?, ?)");
         foreach ($colors as $cl) $stmt->execute([$id, $cl]);
 
@@ -65,22 +70,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_product'])) {
         $pdo->rollBack();
         response(false, 'Lỗi: ' . $e->getMessage());
     }
-}
-
-// Lấy thông tin sản phẩm để chỉnh sửa
-if (isset($_GET['id'])) {
-    $id = intval($_GET['id']);
-    $pdo = getDb();
-    $stmt = $pdo->prepare("SELECT * FROM products WHERE id = ?");
-    $stmt->execute([$id]);
-    $product = $stmt->fetch();
-    if ($product) {
-        $product['sizes'] = $pdo->query("SELECT size FROM product_sizes WHERE product_id = $id")->fetchAll(PDO::FETCH_COLUMN);
-        $product['colors'] = $pdo->query("SELECT color FROM product_colors WHERE product_id = $id")->fetchAll(PDO::FETCH_COLUMN);
-        echo json_encode($product);
-    } else {
-        echo json_encode(['error' => 'Sản phẩm không tồn tại']);
-    }
-    exit;
 }
 ?>

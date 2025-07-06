@@ -167,21 +167,21 @@ document.addEventListener('DOMContentLoaded', function () {
             method: 'POST',
             body: formData
         })
-        .then(r => r.json())
-        .then(data => {
-            alert(data.message);
-            if (data.success) {
-                form.reset();
-                sizes = [];
-                colors = [];
-                selectedImages = [];
-                renderTags(sizeTags, sizes);
-                renderTags(colorTags, colors);
-                preview.innerHTML = '';
-                loadProducts();
-            }
-        })
-        .catch(() => alert('Lỗi kết nối server'));
+            .then(r => r.json())
+            .then(data => {
+                alert(data.message);
+                if (data.success) {
+                    form.reset();
+                    sizes = [];
+                    colors = [];
+                    selectedImages = [];
+                    renderTags(sizeTags, sizes);
+                    renderTags(colorTags, colors);
+                    preview.innerHTML = '';
+                    loadProducts();
+                }
+            })
+            .catch(() => alert('Lỗi kết nối server'));
     });
 
     // Cancel button
