@@ -231,25 +231,25 @@
     </footer>
     <script>
   document.getElementById('pay-btn').onclick = function() {
-  const selectedProducts = [];
-  document.querySelectorAll('.product').forEach(function(product) {
-    if (product.querySelector('.select-product').checked) {
-      // Lấy src tuyệt đối từ gốc assets/img
-      let imgSrc = product.querySelector('.product-img-wrap img').getAttribute('src');
-      if (imgSrc.includes('assets/img/')) {
-        imgSrc = '/assets/img/' + imgSrc.split('assets/img/')[1];
-      }
-      selectedProducts.push({
-        title: product.querySelector('.product-title').innerText,
-        price: product.querySelector('.product-price').innerText,
-        size: product.querySelector('.size-select').value,
-        quantity: product.querySelector('.quantity-group input').value,
-        img: imgSrc
-      });
+    const selectedProducts = [];
+    document.querySelectorAll('.product').forEach(function(product) {
+        if (product.querySelector('.select-product') && product.querySelector('.select-product').checked) {
+            let imgSrc = product.querySelector('.product-img-wrap img').getAttribute('src');
+            selectedProducts.push({
+                title: product.querySelector('.product-title').innerText,
+                price: product.querySelector('.product-price').innerText,
+                size: product.querySelector('.size-select').value,
+                quantity: product.querySelector('.quantity-group input').value,
+                img: imgSrc
+            });
+        }
+    });
+    if (selectedProducts.length > 0) {
+        localStorage.setItem('orderedProducts', JSON.stringify(selectedProducts));
+        window.location.href = '../account/account.html';
+    } else {
+        alert('Vui lòng chọn ít nhất 1 sản phẩm để thanh toán!');
     }
-  });
-  localStorage.setItem('orderedProducts', JSON.stringify(selectedProducts));
-  window.location.href = '../account/account.html';
 };
 
 // Xử lý chọn tất cả sản phẩm
@@ -306,6 +306,63 @@ document.querySelectorAll('.product').forEach(function(product) {
     qtyInput.value = val + 1;
     updateSummary();
   });
+});
+document.addEventListener('DOMContentLoaded', function() {
+    const product = JSON.parse(localStorage.getItem('cartProduct'));
+    if (product) {
+        document.querySelector('.product-list').innerHTML = `
+            <div class="product" data-price="${parseFloat(product.price)}">
+                <div class="product-img-wrap">
+                    <img src="${product.img}" alt="${product.title}" />
+                </div>
+                <div class="product-info">
+                    <div class="product-title">${product.title}</div>
+                    <div class="product-meta">
+                        <span class="product-price">${product.price}</span>
+                    </div>
+                    <div class="product-options">
+                        <label class="size-label">Size
+                            <select class="size-select">
+                                <option>${product.size || '28'}</option>
+                                <option>29</option>
+                                <option>30</option>
+                                <option>31</option>
+                                <option>32</option>
+                            </select>
+                        </label>
+                        <div class="quantity-group">
+                            <button class="decrease"><i class="fa fa-minus"></i></button>
+                            <input type="number" value="${product.quantity}" min="1" />
+                            <button class="increase"><i class="fa fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <input type="checkbox" class="select-product" checked />
+            </div>
+        `;
+        updateSummary(); // Cập nhật lại tổng số lượng và tiền
+        // Gắn lại sự kiện cho nút tăng/giảm và checkbox
+        setTimeout(() => {
+            document.querySelectorAll('.product').forEach(function(product) {
+                const decreaseBtn = product.querySelector('.decrease');
+                const increaseBtn = product.querySelector('.increase');
+                const qtyInput = product.querySelector('.quantity-group input');
+                decreaseBtn.addEventListener('click', function() {
+                    let val = parseInt(qtyInput.value, 10);
+                    if (val > 1) {
+                        qtyInput.value = val - 1;
+                        updateSummary();
+                    }
+                });
+                increaseBtn.addEventListener('click', function() {
+                    let val = parseInt(qtyInput.value, 10);
+                    qtyInput.value = val + 1;
+                    updateSummary();
+                });
+                product.querySelector('.select-product').addEventListener('change', updateSummary);
+            });
+        }, 100);
+    }
 });
 </script>
   </body>
