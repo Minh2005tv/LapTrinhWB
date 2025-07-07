@@ -36,9 +36,38 @@ foreach ($rawProducts as $p) {
     <meta charset="UTF-8">
     <title>Sản phẩm</title>
     <link rel="stylesheet" href="../css/home/product_card.css">
+    <link rel="stylesheet" href="../css/home/header.css">
+    <link rel="stylesheet" href="../css/home/footer.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+            <header class="header">
+            <div class="logo">
+                <a href="#"><img src="../../assets/img/logo.jpg" alt="Logo"></a>
+            </div>    
+            <nav class="nav">
+                <a href="#">Home</a>
+                <a href="#">Men</a>
+                <a href="#">Girl</a>
+                <a href="#">Kids</a>
+                <a href="#">Trademark</a>
+            </nav>
+            <div class="search">
+                <div class="search-box">
+                    <input type="text" placeholder="Search..." required>
+                    <i class='bx bx-search'></i>
+                </div>
+            <div class="user-icons">
+                <a href="../account/login.html" class="user-icon" title="Tài khoản">
+                    <i class='bx bx-user-circle'></i>
+                </a>
+            </div>
+                <a href="cart.html" class="cart-icon" title="Giỏ hàng">
+                    <i class='bx bx-cart'></i>
+                </a>    
+            </div>
+            </div>
+        </header>
     <div class="product-container">
         <?php foreach ($products as $p): ?>
             <div class="item">
@@ -91,5 +120,66 @@ foreach ($rawProducts as $p) {
             </div>
         <?php endforeach; ?>
     </div>
+        <footer class="footer">
+      <div class="footer-top">
+        <div class="footer-box contact">
+          <h4>GỌI MUA HÀNG ONLINE</h4>
+          <p class="hotline">1900.123.456</p>
+          <p>08:00 - 21:00 | Tất cả các ngày (Trừ tết Âm Lịch)</p>
+
+          <h4>GÓP Ý & KHIẾU NẠI</h4>
+          <p class="hotline">1900.266.888</p>
+          <p>08:30 - 20:30 | Tất cả các ngày (Trừ tết Âm Lịch)</p>
+        </div>
+
+        <div class="footer-box">
+          <h4>THÔNG TIN</h4>
+          <ul>
+            <li><a href="#">Giới thiệu về chúng tôi</a></li>
+            <li><a href="#">Thông tin Website</a></li>
+            <li><a href="#">Than Phiền Góp Ý</a></li>
+            <li><a href="#">Chính sách và quy định</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-box">
+          <h4>FAQ</h4>
+          <ul>
+            <li><a href="#">Vận chuyển</a></li>
+            <li><a href="#">Chính sách đổi trả</a></li>
+            <li><a href="#">Bảo hành</a></li>
+            <li><a href="#">Đối tác cung cấp</a></li>
+          </ul>
+          <div class="socials">
+            <img src="../../assets/icon/facebook.jpg" alt="Facebook" />
+            <img src="../../assets/icon/ins.jpg" alt="Instagram" />
+            <img src="../../assets/icon/shoppe.jpg" alt="Shopee" />
+            <img src="../../assets/icon/tiktok.jpg" alt="TikTok" />
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <h3>HỆ THỐNG CỬA HÀNG</h3>
+        <p>Xem địa chỉ các cửa hàng</p>
+
+        <div class="store-list">
+          <div class="store-item">
+            <h5>CN1</h5>
+            <p>
+              📍 Số 2, đường Võ Oanh (D3 cũ), P. 25, Q. Bình Thạnh, TP. HCM.
+            </p>
+          </div>
+          <div class="store-item">
+            <h5>CN2</h5>
+            <p>📍 10/12 Trần Não, KP3, P. Bình An, TP. Thủ Đức, TP. HCM.</p>
+          </div>
+          <div class="store-item">
+            <h5>CN3</h5>
+            <p>📍 hẻm 70 đường Tô Ký, phường Tân Chánh Hiệp, quận 12, TPHCM.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
 </body>
 </html>
