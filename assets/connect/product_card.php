@@ -37,7 +37,8 @@ foreach ($rawProducts as $p) {
     <title>Sản phẩm</title>
     <link rel="stylesheet" href="../css/home/product_card.css">
     <link rel="stylesheet" href="../css/home/header.css">
-    <link rel="stylesheet" href="../css/home/footer.css"> 
+    <link rel="stylesheet" href="../css/home/footer.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
@@ -62,6 +63,7 @@ foreach ($rawProducts as $p) {
                     <i class='bx bx-user-circle'></i>
                 </a>
             </div>
+            <div class="cart-icons">
                 <a href="cart.html" class="cart-icon" title="Giỏ hàng">
                     <i class='bx bx-cart'></i>
                 </a>    
@@ -112,10 +114,18 @@ foreach ($rawProducts as $p) {
                         <?php endforeach; ?>
                     </ul>
 
-
                     <div class="buy-now">
-                        <a href="#"><i class="fa fa-shopping-cart"></i> Thêm Giỏ & Mua Ngay</a>
+                        <a href="../../pages/home/cart.html"
+                        class="add-to-cart-btn"
+                        data-name="<?= htmlspecialchars($p['name']) ?>"
+                        data-price="<?= $p['sales'] ? $discounted : $p['price'] ?>"
+                        data-image="../../<?= htmlspecialchars($p['images'][0] ?? 'uploads/no-image.png') ?>"
+                        data-sizes='<?= json_encode($p["sizes"]) ?>'
+                        data-colors='<?= json_encode($p["colors"]) ?>'>
+                        <i class="fa fa-shopping-cart"></i> Thêm Giỏ & Mua Ngay
+                        </a>
                     </div>
+
                 </div>
             </div>
         <?php endforeach; ?>
@@ -181,5 +191,28 @@ foreach ($rawProducts as $p) {
         </div>
       </div>
     </footer>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+            const buttons = document.querySelectorAll('.add-to-cart-btn');
+
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function () {
+                const product = {
+                    name: this.dataset.name,
+                    price: parseFloat(this.dataset.price),
+                    image: this.dataset.image,
+                    sizes: JSON.parse(this.dataset.sizes),
+                    colors: JSON.parse(this.dataset.colors),
+                    quantity: 1
+                };
+
+                // Thêm vào giỏ hàng trong localStorage
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart.push(product);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                });
+            });
+            });
+        </script>
 </body>
 </html>
