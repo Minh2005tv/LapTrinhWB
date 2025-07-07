@@ -45,13 +45,13 @@ foreach ($rawProducts as $p) {
             <div class="logo">
                 <a href="#"><img src="../../assets/img/logo.jpg" alt="Logo"></a>
             </div>    
-            <nav class="nav">
-                <a href="#">Home</a>
-                <a href="#">Men</a>
-                <a href="#">Girl</a>
-                <a href="#">Kids</a>
-                <a href="#">Trademark</a>
-            </nav>
+                        <nav class="nav">
+    <a href="../../pages/home/home.html">Home</a>
+    <a href="?gender=boys">Boys</a>
+    <a href="?gender=girls">Girls</a>
+    <a href="?gender=kids">Kids</a>
+    <a href="#">Trademark</a>
+</nav>
             <div class="search">
                 <div class="search-box">
                     <input type="text" placeholder="Search..." required>
