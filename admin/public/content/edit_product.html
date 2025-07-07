@@ -2,81 +2,179 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Admin Product Panel</title>
+  <title>Chỉnh sửa sản phẩm</title>
   <link rel="stylesheet" href="../style/style.css">
+  <link rel="stylesheet" href="../style/edit_product.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-  <!-- Menu Admin -->
-  <div class="sidebar" id="sidebar">
-    <div class="logo">Admin</div>
-    <ul>
-      <li style="background-color: #34495e;"><i class='bx bx-home'></i><span>Dashboard</span></li>
-      <li><i class='bx bx-box'></i><span>Quản lý sản phẩm</span></li>
-      <li><i class='bx bx-cart'></i><span>Đơn hàng</span></li>
-      <li><i class='bx bx-cog'></i><span>Cài đặt</span></li>
-      <li><i class='bx bx-log-out'></i><span>Đăng xuất</span></li>
-    </ul>
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>ShoePro <span>Admin</span></h2>
+      </div>
+      <ul class="sidebar-menu">
+        <li class="active"><a href="#"><i class='bx bx-grid-alt'></i> <span>Bảng điều khiển</span></a></li>
+        <li><a href="../content/admin.html"><i class='bx bx-box'></i> <span>Quản lý sản phẩm</span></a></li>
+        <li><a href="#"><i class='bx bx-cart'></i> <span>Đơn hàng</span></a></li>
+        <li><a href="#"><i class='bx bx-cog'></i> <span>Cài đặt</span></a></li>
+        <li><a href="#"><i class='bx bx-log-out'></i> <span>Đăng xuất</span></a></li>
+      </ul>
+    </div>
+
+ <div class="main-content">
+  <button class="toggle-btn" onclick="toggleSidebar()">☰ Menu</button>
+  <div class="container">
+   <form id="product-form" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="id" id="product_id">
+    <input type="hidden" name="edit_product" value="1">
+    <input type="hidden" name="sizes_raw" id="sizes_raw">
+    <input type="hidden" name="color" id="color_input">
+
+    <div class="image-upload">
+     <div id="preview-images" class="images"></div>
+    </div>
+
+    <div class="field">
+     <label>Shoe Name</label>
+     <input type="text" name="name" id="name" required>
+    </div>
+    <div class="field">
+     <label>Shoe Type</label>
+     <input type="text" name="type" id="type" required>
+    </div>
+    <div class="field">
+     <label>Price ($)</label>
+     <input type="number" step="0.01" name="price" id="price" required>
+    </div>
+
+    <div class="flex-row">
+     <label>Size</label>
+     <div id="size-tags" class="tag-box"></div>
+     <input type="text" id="size-input" placeholder="Enter size and press Enter">
+    </div>
+
+    <div class="flex-row">
+     <label>Color</label>
+     <div id="color-tags" class="tag-box"></div>
+     <input type="text" id="color-input-field" placeholder="Enter color and press Enter">
+    </div>
+
+    <div class="field">
+     <label>Date & Time</label>
+     <input type="datetime-local" name="date_time" id="date_time">
+    </div>
+
+    <div class="field">
+     <label>Sales</label>
+     <input type="number" name="sales" id="sales" min="0">
+    </div>
+
+    <div class="buttons">
+     <button type="submit" class="save-btn">Save</button>
+     <button type="reset" class="cancel-btn">Cancel</button>
+    </div>
+   </form>
   </div>
-  <div class="main-content">
-    <button class="toggle-btn" onclick="toggleSidebar()">☰ Menu</button>
-    <div class="container">
-      <form id="product-form" action="../../controllers/admin.php" method="POST" enctype="multipart/form-data">
-        <div class="image-upload">
-          <div id="preview-images" class="images"></div>
-          <div class="add-img">
-            <label for="image-input" style="cursor:pointer;color:#1976d2;font-weight:bold;">Thêm IMG</label>
-            <input type="file" id="image-input" name="images[]" accept="image/*" multiple style="display:none;">
-            <span class="img-icon" style="cursor:pointer;" onclick="document.getElementById('image-input').click();">
-              <i class='bx bx-image'></i>
-            </span>
-          </div>
-        </div>
-        <input type="hidden" name="sizes_raw" id="sizes_raw">
-        <input type="hidden" name="add_product" value="1">
-        <input type="hidden" name="color" id="color_input">
+ </div>
 
-        <div class="field">
-          <label style="color: #2c3e50;">Shoe Name</label>
-          <input type="text" name="name" id="name" required style="border-color: #2c3e50;">
-        </div>
-        <div class="field">
-          <label style="color: #2c3e50;">Shoe Type</label>
-          <input type="text" name="type" id="type" required style="border-color: #2c3e50;">
-        </div>
-        <div class="field">
-          <label style="color: #2c3e50;">Price ($)</label>
-          <input type="number" step="0.01" name="price" id="price" required style="border-color: #2c3e50;">
-        </div>
+ <script>
+ document.addEventListener('DOMContentLoaded', function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const productId = urlParams.get('id');
+  if (!productId) return alert("Không có ID sản phẩm");
 
-        <div class="flex-row">
-          <label style="color: #2c3e50;">Size</label>
-          <div id="size-tags" class="tag-box"></div>
-          <input type="text" id="size-input" placeholder="Enter size and press Enter" style="border-color: #2c3e50;">
-        </div>
+  const form = document.getElementById('product-form');
+  const sizeInput = document.getElementById('size-input');
+  const sizeTags = document.getElementById('size-tags');
+  const colorInput = document.getElementById('color-input-field');
+  const colorTags = document.getElementById('color-tags');
+  const preview = document.getElementById('preview-images');
+  let sizes = [], colors = [];
 
-        <div class="flex-row">
-          <label style="color: #2c3e50;">Color</label>
-          <div id="color-tags" class="tag-box"></div>
-          <input type="text" id="color-input-field" placeholder="Enter color (vd: red, #ff0000, rgb(255,0,0))and press Enter" style="border-color: #2c3e50;">
-        </div>
+  function renderTags(container, arr) {
+   container.innerHTML = '';
+   arr.forEach((val, i) => {
+    let tag = document.createElement('span');
+    tag.className = 'tag';
+    tag.textContent = val;
+    let rm = document.createElement('span');
+    rm.textContent = ' ×';
+    rm.style.cursor = 'pointer';
+    rm.onclick = () => { arr.splice(i, 1); renderTags(container, arr); };
+    tag.appendChild(rm);
+    container.appendChild(tag);
+   });
+  }
 
-        <div class="field">
-          <label style="color: #2c3e50;">Date & Time</label>
-          <input type="datetime-local" name="date_time" id="date_time" style="border-color: #2c3e50;">
-        </div>
+  fetch('../../controllers/get_products.php')
+   .then(res => res.json())
+   .then(products => {
+    const product = products.find(p => p.id == productId);
+    if (!product) return alert('Không tìm thấy sản phẩm');
 
-        <div class="field">
-          <label style="color: #2c3e50;">Sales</label>
-          <input type="number" name="sales" id="sales" min="0" style="border-color: #2c3e50;">
-        </div>
+    form.name.value = product.name;
+    form.type.value = product.type;
+    form.price.value = product.price;
+    form.date_time.value = product.date_time || '';
+    form.sales.value = product.sales || '';
+    document.getElementById('product_id').value = productId;
 
-        <div class="buttons">
-          <button type="submit" class="save-btn" style="background-color: #1abc9c;">Save</button>
-          <button type="reset" class="cancel-btn" style="background-color: #e74c3c;">Cancel</button>
-        </div>
-      </form>
-    </div>
-    </div>
+    sizes = product.sizes || [];
+    colors = product.colors || [];
+    renderTags(sizeTags, sizes);
+    renderTags(colorTags, colors);
+
+    preview.innerHTML = '';
+    product.images.forEach(url => {
+     const img = document.createElement('img');
+     img.src = `/Website_Selling sports shoes/${url}`;
+     img.style.width = '60px';
+     img.style.margin = '5px';
+     preview.appendChild(img);
+    });
+   });
+
+  form.addEventListener('submit', function (e) {
+   e.preventDefault();
+   if (sizes.length === 0 || colors.length === 0) return alert('Phải nhập ít nhất 1 size và 1 màu');
+   document.getElementById('sizes_raw').value = JSON.stringify(sizes);
+   document.getElementById('color_input').value = JSON.stringify(colors);
+
+   const formData = new FormData(form);
+
+   fetch('../../controllers/edit_product.php', {
+    method: 'POST',
+    body: formData
+   })
+   .then(res => res.json())
+   .then(data => {
+    alert(data.message);
+    if (data.success) {
+     setTimeout(() => {
+      window.location.href = 'Admin.html';
+     }, 1000);
+    }
+   });
+  });
+
+  sizeInput.addEventListener('keydown', function (e) {
+   if (e.key === 'Enter' && sizeInput.value.trim() !== '') {
+    e.preventDefault();
+    sizes.push(sizeInput.value.trim());
+    renderTags(sizeTags, sizes);
+    sizeInput.value = '';
+   }
+  });
+
+  colorInput.addEventListener('keydown', function (e) {
+   if (e.key === 'Enter' && colorInput.value.trim() !== '') {
+    e.preventDefault();
+    colors.push(colorInput.value.trim());
+    renderTags(colorTags, colors);
+    colorInput.value = '';
+   }
+  });
+ });
+ </script>
 </body>
 </html>

@@ -3,23 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>Admin Product Panel</title>
-  <link rel="stylesheet" href="../style/style.css">
+  <link rel="stylesheet" href="../style/admin.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
   <!-- Menu Admin -->
-  <div class="sidebar" id="sidebar">
-    <div class="logo">Admin</div>
-    <ul>
-      <li style="background-color: #34495e;"><i class='bx bx-home'></i><span>Dashboard</span></li>
-      <li><i class='bx bx-box'></i><span>Quản lý sản phẩm</span></li>
-      <li><i class='bx bx-cart'></i><span>Đơn hàng</span></li>
-      <li><i class='bx bx-cog'></i><span>Cài đặt</span></li>
-      <li><i class='bx bx-log-out'></i><span>Đăng xuất</span></li>
-    </ul>
-  </div>
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>ShoePro <span>Admin</span></h2>
+      </div>
+      <ul class="sidebar-menu">
+        <li class="active"><a href="#"><i class='bx bx-grid-alt'></i> <span>Bảng điều khiển</span></a></li>
+        <li><a href="#"><i class='bx bx-box'></i> <span>Quản lý sản phẩm</span></a></li>
+        <li><a href="#"><i class='bx bx-cart'></i> <span>Đơn hàng</span></a></li>
+        <li><a href="#"><i class='bx bx-cog'></i> <span>Cài đặt</span></a></li>
+        <li><a href="#"><i class='bx bx-log-out'></i> <span>Đăng xuất</span></a></li>
+      </ul>
+    </div>
+
   <div class="main-content">
-    <button class="toggle-btn" onclick="toggleSidebar()">☰ Menu</button>
     <div class="container">
       <form id="product-form" action="../../controllers/admin.php" method="POST" enctype="multipart/form-data">
         <div class="image-upload">

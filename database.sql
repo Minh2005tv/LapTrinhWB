@@ -46,7 +46,7 @@ ADD COLUMN sales INT NULL;
 
 CREATE TABLE IF NOT EXISTS carts (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  user_id INT DEFAULT NULL, -- NULL nếu chưa đăng nhập
+  user_id INT DEFAULT NULL, 
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -60,12 +60,11 @@ CREATE TABLE IF NOT EXISTS cart_items (
   FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
--- ✅ Chuẩn hóa dữ liệu cột 'type' để đảm bảo lọc đúng theo giới tính
--- Chuyển thành chữ thường và loại bỏ khoảng trắng
+
 UPDATE products
 SET type = LOWER(TRIM(type));
 
--- ✅ Sửa lỗi chính tả nếu có
+
 UPDATE products SET type = 'boys' WHERE type IN ('boy', 'bois');
 UPDATE products SET type = 'girls' WHERE type IN ('girl', 'gurl');
 UPDATE products SET type = 'kids' WHERE type IN ('kid', 'children');
