@@ -7,18 +7,6 @@ body {
   background: #fafbfc;
 }
 
-header.main-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #e5e9f2;
-  padding: 6px 0;
-  font-weight: bold;
-  font-size: 22px;
-  border-top: 3px solid #b3c0d1;
-  border-bottom: 2px solid #b3c0d1;
-  position: relative;
-}
 .hd-badge {
   background: #888;
   color: #fff;
@@ -47,7 +35,7 @@ footer.main-footer {
 .container {
   display: flex;
   justify-content: space-between;
-  padding: 30px 30px 10px 30px;
+  padding:90px 30px 30px 30px;
   gap: 30px;
   min-height: 70vh;
 }

@@ -5,221 +5,66 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cart & Payment</title>
-    <link rel="stylesheet" href="../../assets/css/home/cart.css" />
+    <link rel="stylesheet" href="../../assets/css/home/header.css"/>
+    <link rel="stylesheet" href="../../assets/css/home/footer.css" />
+    <link rel="stylesheet" href="../../assets/css/home/cart.css"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  </head>
-  <script>
-function updateCartSummary() {
-  const allProducts = document.querySelectorAll(".product");
-  let total = 0, count = 0;
-
-  allProducts.forEach(p => {
-    const checked = p.querySelector(".select-product").checked;
-    const qty = parseInt(p.querySelector("input[type='number']").value);
-    const price = parseFloat(p.dataset.price);
-
-    if (checked) {
-      total += qty * price;
-      count++;
-    }
-  });
-
-  document.getElementById("total").textContent = total + "$";
-  document.getElementById("count").textContent = count;
-}
-
-function saveCartToLocalStorage() {
-  const newCart = [];
-
-  document.querySelectorAll(".product").forEach(p => {
-    const name = p.querySelector(".product-title").textContent;
-    const price = parseFloat(p.dataset.price);
-    const image = p.querySelector("img").src;
-    const size = p.querySelector(".size-select").value;
-    const qty = parseInt(p.querySelector("input[type='number']").value);
-    const color = ""; // (nếu bạn có tích hợp màu)
-
-    newCart.push({ name, price, image, sizes: [size], colors: [color], quantity: qty });
-  });
-
-  localStorage.setItem("cart", JSON.stringify(newCart));
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  const cartList = document.querySelector(".product-list");
-  const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-
-  cartList.innerHTML = "";
-
-  storedCart.forEach((item, index) => {
-    const product = document.createElement("div");
-    product.className = "product";
-    product.dataset.price = item.price;
-
-    product.innerHTML = `
-      <div class="product-img-wrap">
-        <img src="${item.image}" alt="Product" />
-      </div>
-      <div class="product-info">
-        <div class="product-title">${item.name}</div>
-        <div class="product-meta">
-          <span class="product-price">${item.price}$</span>
-        </div>
-        <div class="product-options">
-          <label class="size-label">Size
-            <select class="size-select">
-              ${item.sizes.map(sz => `<option>${sz}</option>`).join("")}
-            </select>
-          </label>
-          <div class="quantity-group">
-            <button class="decrease"><i class="fa fa-minus"></i></button>
-            <input type="number" value="${item.quantity}" readonly />
-            <button class="increase"><i class="fa fa-plus"></i></button>
-          </div>
-        </div>
-      </div>
-      <input type="checkbox" class="select-product" />
-      <button class="remove-btn" style="position: absolute; top: 10px; right: 10px; background: transparent; border: none; font-size: 18px; color: red; cursor: pointer;">&times;</button>
-    `;
-
-    cartList.appendChild(product);
-  });
-
-  // Xử lý sự kiện tăng/giảm/xóa
-  cartList.addEventListener("click", function (e) {
-    const product = e.target.closest(".product");
-
-    if (e.target.classList.contains("increase")) {
-      const input = product.querySelector("input[type='number']");
-      input.value = parseInt(input.value) + 1;
-      saveCartToLocalStorage();
-      updateCartSummary();
-    }
-
-    if (e.target.classList.contains("decrease")) {
-      const input = product.querySelector("input[type='number']");
-      if (parseInt(input.value) > 1) {
-        input.value = parseInt(input.value) - 1;
-        saveCartToLocalStorage();
-        updateCartSummary();
+    <style>
+      #popup-noti {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
       }
-    }
-
-    if (e.target.classList.contains("remove-btn")) {
-      product.remove();
-      saveCartToLocalStorage();
-      updateCartSummary();
-    }
-
-    if (e.target.classList.contains("select-product")) {
-      updateCartSummary();
-    }
-  });
-
-  document.getElementById("select-all").addEventListener("change", (e) => {
-    const allChecks = document.querySelectorAll(".select-product");
-    allChecks.forEach(chk => chk.checked = e.target.checked);
-    updateCartSummary();
-  });
-
-  updateCartSummary();
-});
-</script>
-
+    </style>
+  </head>
   <body>
-    <header class="main-header"><span class="hd-badge">HD</span><span class="menu-title">menu</span></header>
+            <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <a href="#"><img src="../../assets/img/logo.jpg" alt="Logo"></a>
+            </div>    
+            <nav class="nav">
+                <a href="#">Home</a>
+                <a href="../../assets/connect/product_card.php?gender=boys">Boys</a>
+                <a href="../../assets/connect/product_card.php?gender=girls">Girls</a>
+                <a href="../../assets/connect/product_card.php?gender=kids">Kids</a>
+                <a href="#">Trademark</a>
+            </nav>
+            <div class="search">
+                <div class="search-box">
+                    <input type="text" placeholder="Search..." required>
+                    <i class='bx bx-search'></i>
+                </div>
+            <div class="user-icons">
+                <a href="../error/error.html" class="user-icon" title="Tài khoản">
+                    <i class='bx bx-user-circle'></i>
+                </a>
+            </div>
+            <div class="cart-icons">
+                <a href="cart.html" class="cart-icon" title="Giỏ hàng">
+                    <i class='bx bx-cart'></i>
+                </a>    
+            </div>
+            </div>
+        </header>
+        <!-- Header -->
     <main class="container">
-      <!-- Shopping Bag -->
       <section class="shopping-bag">
         <div class="bag-header">
           <h3>Shopping Bag</h3>
           <i class="fa fa-shopping-bag"></i>
         </div>
-        <div class="product-list">
-          <!-- Sản phẩm mẫu -->
-          <div class="product" data-price="20">
-            <div class="product-img-wrap">
-              <img src="../../assets/img/slide-1.jpg" alt="Product" />
-            </div>
-            <div class="product-info">
-              <div class="product-title">Giày Nike Air</div>
-              <div class="product-meta">
-                <span class="product-price">20$</span>
-              </div>
-              <div class="product-options">
-                <label class="size-label">Size
-                  <select class="size-select">
-                    <option>M</option>
-                    <option>L</option>
-                    <option>XL</option>
-                  </select>
-                </label>
-                <div class="quantity-group">
-                  <button class="decrease"><i class="fa fa-minus"></i></button>
-                  <input type="number" value="1" readonly />
-                  <button class="increase"><i class="fa fa-plus"></i></button>
-                </div>
-              </div>
-            </div>
-            <input type="checkbox" class="select-product" />
-          </div>
-          <div class="product" data-price="30">
-            <div class="product-img-wrap">
-              <img src="../../assets/img/slide-2.jpg" alt="Product" />
-            </div>
-            <div class="product-info">
-              <div class="product-title">New Balance</div>
-              <div class="product-meta">
-                <span class="product-price">30$</span>
-              </div>
-              <div class="product-options">
-                <label class="size-label">Size
-                  <select class="size-select">
-                    <option>28</option>
-                    <option>29</option>
-                    <option>30</option>
-                    <option>31</option>
-                  </select>
-                </label>
-                <div class="quantity-group">
-                  <button class="decrease"><i class="fa fa-minus"></i></button>
-                  <input type="number" value="1" readonly />
-                  <button class="increase"><i class="fa fa-plus"></i></button>
-                </div>
-              </div>
-            </div>
-            <input type="checkbox" class="select-product" />
-          </div>
-          <div class="product" data-price="25">
-            <div class="product-img-wrap">
-              <img src="../../assets/img/slide-3.jpg" alt="Product" />
-            </div>
-            <div class="product-info">
-              <div class="product-title">Adidas</div>
-              <div class="product-meta">
-                <span class="product-price">25$</span>
-              </div>
-              <div class="product-options">
-                <label class="size-label">Size
-                  <select class="size-select">
-                    <option>M</option>
-                    <option>L</option>
-                    <option>XL</option>
-                  </select>
-                </label>
-                <div class="quantity-group">
-                  <button class="decrease"><i class="fa fa-minus"></i></button>
-                  <input type="number" value="1" readonly />
-                  <button class="increase"><i class="fa fa-plus"></i></button>
-                </div>
-              </div>
-            </div>
-            <input type="checkbox" class="select-product" />
-          </div>
-        </div>
+        <div class="product-list"></div>
         <label class="select-all-label"><input type="checkbox" id="select-all" /> All</label>
       </section>
-      <!-- Payment Section -->
       <section class="payment-summary">
         <h3>PAYMENT</h3>
         <div class="info">
@@ -247,8 +92,240 @@ document.addEventListener("DOMContentLoaded", () => {
         <button id="pay-btn">PAYMENT</button>
       </section>
     </main>
-    <footer class="main-footer"><span>FOOTER</span></footer>
-    <script src="../../assets/js/cart.js"></script>
     <div id="popup-noti"></div>
+    <script>
+      function updateCartSummary() {
+        const allProducts = document.querySelectorAll(".product");
+        let total = 0,
+          count = 0;
+
+        allProducts.forEach((p) => {
+          const checked = p.querySelector(".select-product").checked;
+          const qty = parseInt(p.querySelector("input[type='number']").value);
+          const price = parseFloat(p.dataset.price);
+
+          if (checked) {
+            total += qty * price;
+            count++;
+          }
+        });
+
+        document.getElementById("total").textContent = total + "$";
+        document.getElementById("count").textContent = count;
+      }
+
+      function saveCartToLocalStorage() {
+        const newCart = [];
+
+        document.querySelectorAll(".product").forEach((p) => {
+          const name = p.querySelector(".product-title").textContent;
+          const price = parseFloat(p.dataset.price);
+          const image = p.querySelector("img").src;
+          const size = p.querySelector(".size-select").value;
+          const qty = parseInt(p.querySelector("input[type='number']").value);
+          const color = "";
+
+          newCart.push({ name, price, image, sizes: [size], colors: [color], quantity: qty });
+        });
+
+        localStorage.setItem("cart", JSON.stringify(newCart));
+      }
+
+      function showConfirmPopup(callback) {
+        const confirmPopup = document.createElement("div");
+        confirmPopup.style.position = "fixed";
+        confirmPopup.style.top = "50%";
+        confirmPopup.style.left = "50%";
+        confirmPopup.style.transform = "translate(-50%, -50%)";
+        confirmPopup.style.background = "white";
+        confirmPopup.style.padding = "20px";
+        confirmPopup.style.boxShadow = "0 0 10px rgba(0,0,0,0.3)";
+        confirmPopup.style.zIndex = 9999;
+
+        confirmPopup.innerHTML = `
+          <h4>Bạn muốn thanh toán đơn hàng này?</h4>
+          <button id="confirm-yes">Chấp nhận</button>
+          <button id="confirm-no">Hủy</button>
+        `;
+
+        document.body.appendChild(confirmPopup);
+
+        document.getElementById("confirm-yes").onclick = () => {
+          confirmPopup.remove();
+          callback(true);
+        };
+
+        document.getElementById("confirm-no").onclick = () => {
+          confirmPopup.remove();
+          callback(false);
+        };
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const cartList = document.querySelector(".product-list");
+        const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        cartList.innerHTML = "";
+
+        storedCart.forEach((item) => {
+          const product = document.createElement("div");
+          product.className = "product";
+          product.dataset.price = item.price;
+
+          product.innerHTML = `
+            <div class="product-img-wrap">
+              <img src="${item.image}" alt="Product" />
+            </div>
+            <div class="product-info">
+              <div class="product-title">${item.name}</div>
+              <div class="product-meta">
+                <span class="product-price">${item.price}$</span>
+              </div>
+              <div class="product-options">
+                <label class="size-label">Size
+                  <select class="size-select">
+                    ${item.sizes.map((sz) => `<option>${sz}</option>`).join("")}
+                  </select>
+                </label>
+                <div class="quantity-group">
+                  <button class="decrease"><i class="fa fa-minus"></i></button>
+                  <input type="number" value="${item.quantity}" />
+                  <button class="increase"><i class="fa fa-plus"></i></button>
+                </div>
+              </div>
+            </div>
+            <input type="checkbox" class="select-product" />
+            <button class="remove-btn" style="position: absolute; top: 10px; right: 10px; background: transparent; border: none; font-size: 18px; color: red; cursor: pointer;">&times;</button>
+          `;
+
+          cartList.appendChild(product);
+        });
+
+        cartList.addEventListener("click", function (e) {
+          const product = e.target.closest(".product");
+          const increaseBtn = e.target.closest(".increase");
+          const decreaseBtn = e.target.closest(".decrease");
+          const removeBtn = e.target.closest(".remove-btn");
+
+          if (increaseBtn) {
+            const input = product.querySelector("input[type='number']");
+            input.value = parseInt(input.value) + 1;
+            saveCartToLocalStorage();
+            updateCartSummary();
+          }
+
+          if (decreaseBtn) {
+            const input = product.querySelector("input[type='number']");
+            if (parseInt(input.value) > 1) {
+              input.value = parseInt(input.value) - 1;
+              saveCartToLocalStorage();
+              updateCartSummary();
+            }
+          }
+
+          if (removeBtn) {
+            product.remove();
+            saveCartToLocalStorage();
+            updateCartSummary();
+          }
+
+          if (e.target.classList.contains("select-product")) {
+            updateCartSummary();
+          }
+        });
+
+        document.getElementById("select-all").addEventListener("change", (e) => {
+          const allChecks = document.querySelectorAll(".select-product");
+          allChecks.forEach((chk) => (chk.checked = e.target.checked));
+          updateCartSummary();
+        });
+
+        document.getElementById("pay-btn").addEventListener("click", () => {
+          const delivery = document.getElementById("delivery-method").value;
+          const address = document.getElementById("address").value;
+          const payment = document.getElementById("payment-method").value;
+
+          if (!delivery || !address || !payment) {
+            alert("Vui lòng điền đầy đủ thông tin giao hàng và thanh toán");
+            return;
+          }
+
+          showConfirmPopup((confirmed) => {
+            if (confirmed) {
+              alert("✅ Thanh toán thành công! Cảm ơn bạn đã mua hàng.");
+              localStorage.removeItem("cart");
+              location.reload();
+            } else {
+              alert("❌ Thanh toán đã bị hủy.");
+            }
+          });
+        });
+
+        updateCartSummary();
+      });
+    </script>
+    <!--Footer-->
+    <footer class="footer">
+      <div class="footer-top">
+        <div class="footer-box contact">
+          <h4>GỌI MUA HÀNG ONLINE</h4>
+          <p class="hotline">1900.123.456</p>
+          <p>08:00 - 21:00 | Tất cả các ngày (Trừ tết Âm Lịch)</p>
+
+          <h4>GÓP Ý & KHIẾU NẠI</h4>
+          <p class="hotline">1900.266.888</p>
+          <p>08:30 - 20:30 | Tất cả các ngày (Trừ tết Âm Lịch)</p>
+        </div>
+
+        <div class="footer-box">
+          <h4>THÔNG TIN</h4>
+          <ul>
+            <li><a href="#">Giới thiệu về chúng tôi</a></li>
+            <li><a href="#">Thông tin Website</a></li>
+            <li><a href="#">Than Phiền Góp Ý</a></li>
+            <li><a href="#">Chính sách và quy định</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-box">
+          <h4>FAQ</h4>
+          <ul>
+            <li><a href="#">Vận chuyển</a></li>
+            <li><a href="#">Chính sách đổi trả</a></li>
+            <li><a href="#">Bảo hành</a></li>
+            <li><a href="#">Đối tác cung cấp</a></li>
+          </ul>
+          <div class="socials">
+            <img src="../../assets/icon/facebook.jpg" alt="Facebook" />
+            <img src="../../assets/icon/ins.jpg" alt="Instagram" />
+            <img src="../../assets/icon/shoppe.jpg" alt="Shopee" />
+            <img src="../../assets/icon/tiktok.jpg" alt="TikTok" />
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <h3>HỆ THỐNG CỬA HÀNG</h3>
+        <p>Xem địa chỉ các cửa hàng</p>
+
+        <div class="store-list">
+          <div class="store-item">
+            <h5>CN1</h5>
+            <p>
+              📍 Số 2, đường Võ Oanh (D3 cũ), P. 25, Q. Bình Thạnh, TP. HCM.
+            </p>
+          </div>
+          <div class="store-item">
+            <h5>CN2</h5>
+            <p>📍 10/12 Trần Não, KP3, P. Bình An, TP. Thủ Đức, TP. HCM.</p>
+          </div>
+          <div class="store-item">
+            <h5>CN3</h5>
+            <p>📍 hẻm 70 đường Tô Ký, phường Tân Chánh Hiệp, quận 12, TPHCM.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!--Footer-->
   </body>
 </html>
