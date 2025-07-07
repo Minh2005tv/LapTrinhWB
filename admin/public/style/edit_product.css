@@ -1,8 +1,308 @@
-/* edit_product.css */
-body {
+:root {
+  --primary-color: #1abc9c;
+  --primary-dark: #16a085;
+  --neutral-light: #ecf0f1;
+  --neutral-mid: #bdc3c7;
+  --neutral-dark: #2c3e50;
+  --bg-glass: rgba(236, 240, 241, 0.9);
+  --shadow-main: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --radius-main: 12px;
+  --transition: 0.3s ease;
+}
+
+* {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #f4f6f9;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #e8ecef, #f0f4f7);
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.container {
+  width: clamp(320px, 95%, 1280px);
+  background: var(--bg-glass);
+  padding: 30px;
+  border-radius: var(--radius-main);
+  box-shadow: var(--shadow-main);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: transform var(--transition), box-shadow var(--transition);
+  overflow-x: auto;
+}
+
+.container:hover {
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+}
+
+.main-content {
+  justify-content: center;
+  width: 50%;
+}
+
+/* ============================== Image Upload ============================== */
+.image-upload {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid var(--neutral-mid);
+}
+
+.images {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.image-box {
+  width: 100px;
+  height: 100px;
+  background: var(--neutral-light);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  transition: transform var(--transition);
+}
+
+.image-box:hover {
+  transform: scale(1.06);
+}
+
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.delete-icon {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: #ffffffcc;
+  border-radius: 50%;
+  padding: 4px;
+  font-size: 14px;
+  color: #e74c3c;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+.delete-icon:hover {
+  background: #e74c3c;
+  color: #ffffff;
+}
+
+.add-img {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.add-img label {
+  font-weight: 600;
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.add-img label:hover {
+  color: var(--primary-dark);
+}
+
+.img-icon {
+  font-size: 24px;
+  color: var(--primary-color);
+  transition: transform var(--transition);
+}
+
+.img-icon:hover {
+  transform: scale(1.2);
+}
+
+/* ============================== Form Fields ============================== */
+.field {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: var(--neutral-dark);
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"],
+input[type="datetime-local"] {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--neutral-mid);
+  font-size: 15px;
+  background: #ffffff;
+  transition: all var(--transition);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(26, 188, 156, 0.15);
+}
+
+/* ============================== Tags ============================== */
+.flex-row {
+  margin-top: 20px;
+}
+
+.tag-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: #e8ecef;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--neutral-mid);
+  margin-top: 8px;
+}
+
+.tag {
+  background: #d5e8e6;
+  color: var(--primary-dark);
+  padding: 8px 12px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.tag:hover {
+  background: #c2dede;
+  transform: scale(1.05);
+}
+
+
+/* ============================== Product Table ============================== */
+h3 {
+  margin-top: 40px;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--neutral-dark);
+}
+
+.product-table {
+  width: 100%;
+  min-width: 960px;
+  margin-top: 20px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #ffffff;
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+.product-table th,
+.product-table td {
+  border: 1px solid var(--neutral-mid);
+  padding: 14px;
+  text-align: center;
+}
+
+.product-table th {
+  background: var(--primary-color);
+  color: white;
+}
+
+.product-table tr:hover {
+  background: #f9fafb;
+}
+
+/* ============================== Responsive ============================== */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  .image-upload {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .product-table {
+    font-size: 13px;
+    overflow-x: auto;
+  }
+
+  .product-table th,
+  .product-table td {
+    padding: 10px;
+  }
+}
+
+/* ============================== Action Menu (⋮) ============================== */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.menu-btn {
+  cursor: pointer;
+  font-size: 20px;
+  padding: 6px;
+  user-select: none;
+  color: var(--neutral-dark);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 24px;
+  background-color: #ffffff;
+  min-width: 120px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.12);
+  z-index: 100;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: all var(--transition);
+}
+
+.dropdown-content div {
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 14px;
+  color: var(--neutral-dark);
+}
+
+.dropdown-content div:hover {
+  background-color: #e8ecef;
+  color: var(--primary-dark);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.product-table td {
+  border: 1px solid var(--neutral-mid);
+  min-height: 50px;
+}
+
+.product-table td:last-child {
+  width: 60px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .sidebar {
@@ -58,77 +358,6 @@ body {
   font-size: 18px;
 }
 
-.main-content {
-  margin-left: 250px;
-  padding: 40px;
-}
-
-.toggle-btn {
-  display: none;
-  font-size: 22px;
-  background: none;
-  border: none;
-  margin-bottom: 20px;
-  cursor: pointer;
-}
-
-.container {
-  background: #fff;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-  max-width: 700px;
-  margin: auto;
-}
-
-.field, .flex-row {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #2f3542;
-}
-
-input[type="text"],
-input[type="number"],
-input[type="datetime-local"] {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  transition: border-color 0.3s ease;
-}
-
-input:focus {
-  outline: none;
-  border-color: #1e90ff;
-}
-
-.tag-box {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 8px;
-}
-
-.tag {
-  background: #1e90ff;
-  color: white;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-}
-
-.tag span {
-  margin-left: 8px;
-  font-weight: bold;
-  cursor: pointer;
-}
 
 .images {
   display: flex;

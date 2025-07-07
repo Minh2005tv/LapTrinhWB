@@ -42,7 +42,9 @@ body {
 }
 
 .main-content {
-  margin-left: 200px;
+  justify-content: center;
+  width: 50%;
+  margin-left: 240px; /* Adjusted for sidebar width */
 }
 
 /* ============================== Image Upload ============================== */
