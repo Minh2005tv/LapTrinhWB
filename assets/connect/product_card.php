@@ -18,7 +18,25 @@ function getDb() {
 }
 
 $pdo = getDb();
-$rawProducts = $pdo->query("SELECT * FROM products ORDER BY created_at DESC")->fetchAll();
+$gender = $_GET['gender'] ?? null;
+
+if ($gender) {
+    $genderMap = [
+        'boys' => ['boy', 'boys'],
+        'girls' => ['girl', 'girls'],
+        'kids' => ['kid', 'kids', 'children']
+    ];
+
+    $gender = strtolower($gender);
+    $gendersToMatch = $genderMap[$gender] ?? [$gender]; // fallback nếu không khớp
+
+    $placeholders = implode(',', array_fill(0, count($gendersToMatch), '?'));
+    $stmt = $pdo->prepare("SELECT * FROM products WHERE LOWER(type) IN ($placeholders) ORDER BY created_at DESC");
+    $stmt->execute(array_map('strtolower', $gendersToMatch));
+    $rawProducts = $stmt->fetchAll();
+} else {
+    $rawProducts = $pdo->query("SELECT * FROM products ORDER BY created_at DESC")->fetchAll();
+}
 
 $products = [];
 foreach ($rawProducts as $p) {
@@ -28,6 +46,7 @@ foreach ($rawProducts as $p) {
     $products[] = $p;
 }
 ?>
+
 
 
 <!DOCTYPE html>
@@ -42,17 +61,17 @@ foreach ($rawProducts as $p) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-            <header class="header">
+    <header class="header">
             <div class="logo">
                 <a href="#"><img src="../../assets/img/logo.jpg" alt="Logo"></a>
             </div>    
-                        <nav class="nav">
-    <a href="../../pages/home/home.html">Home</a>
-    <a href="?gender=boys">Boys</a>
-    <a href="?gender=girls">Girls</a>
-    <a href="?gender=kids">Kids</a>
-    <a href="#">Trademark</a>
-</nav>
+            <nav class="nav">
+                <a href="../../pages/home/home.html">Home</a>
+                <a href="?gender=boys">Boys</a>
+                <a href="?gender=girls">Girls</a>
+                <a href="?gender=kids">Kids</a>
+                <a href="#">Trademark</a>
+            </nav>
             <div class="search">
                 <div class="search-box">
                     <input type="text" placeholder="Search..." required>
@@ -70,6 +89,12 @@ foreach ($rawProducts as $p) {
             </div>
             </div>
         </header>
+    <?php if ($gender): ?>
+    <h1 style="text-align:center; padding: 20px 0;">
+        Hiển thị sản phẩm cho: <?= htmlspecialchars(ucfirst($gender)) ?>
+    </h1>
+    <?php endif; ?>
+
     <div class="product-container">
         <?php foreach ($products as $p): ?>
             <div class="item">

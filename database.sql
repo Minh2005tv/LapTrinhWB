@@ -59,3 +59,13 @@ CREATE TABLE IF NOT EXISTS cart_items (
   FOREIGN KEY (cart_id) REFERENCES carts(id) ON DELETE CASCADE,
   FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
+
+-- ✅ Chuẩn hóa dữ liệu cột 'type' để đảm bảo lọc đúng theo giới tính
+-- Chuyển thành chữ thường và loại bỏ khoảng trắng
+UPDATE products
+SET type = LOWER(TRIM(type));
+
+-- ✅ Sửa lỗi chính tả nếu có
+UPDATE products SET type = 'boys' WHERE type IN ('boy', 'bois');
+UPDATE products SET type = 'girls' WHERE type IN ('girl', 'gurl');
+UPDATE products SET type = 'kids' WHERE type IN ('kid', 'children');
