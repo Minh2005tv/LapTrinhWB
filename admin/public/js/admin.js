@@ -27,11 +27,20 @@ document.addEventListener('DOMContentLoaded', function () {
             if (colors.length >= 5) return alert('Tối đa 5 màu');
             let val = colorInput.value.trim();
             if (val === '') return alert('Màu không được rỗng');
+            if (!isValidCssColor(val)) return alert('Mã màu không hợp lệ. Hãy nhập dạng #hex, rgb() hoặc tên chuẩn CSS.');
+
             colors.push(val);
             renderTags(colorTags, colors, (i) => { colors.splice(i, 1); renderTags(colorTags, colors); });
             colorInput.value = '';
         }
     });
+
+        function isValidCssColor(color) {
+            const s = new Option().style;
+            s.color = '';
+            s.color = color;
+            return s.color !== '';
+        }
 
     function renderTags(container, arr, onRemove) {
         container.innerHTML = '';

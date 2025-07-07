@@ -18,14 +18,17 @@ function getDb() {
 }
 
 $pdo = getDb();
-$products = $pdo->query("SELECT * FROM products ORDER BY id DESC")->fetchAll();
+$rawProducts = $pdo->query("SELECT * FROM products ORDER BY created_at DESC")->fetchAll();
 
-foreach ($products as &$p) {
+$products = [];
+foreach ($rawProducts as $p) {
     $p['sizes'] = $pdo->query("SELECT size FROM product_sizes WHERE product_id = {$p['id']}")->fetchAll(PDO::FETCH_COLUMN);
     $p['colors'] = $pdo->query("SELECT color FROM product_colors WHERE product_id = {$p['id']}")->fetchAll(PDO::FETCH_COLUMN);
     $p['images'] = $pdo->query("SELECT image_url FROM product_images WHERE product_id = {$p['id']}")->fetchAll(PDO::FETCH_COLUMN);
+    $products[] = $p;
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -33,24 +36,26 @@ foreach ($products as &$p) {
     <meta charset="UTF-8">
     <title>Sản phẩm</title>
     <link rel="stylesheet" href="../css/home/product_card.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
     <div class="product-container">
         <?php foreach ($products as $p): ?>
             <div class="item">
                 <div class="img-box">
-                    <img src="../../<?= htmlspecialchars($p['images'][0] ?? 'uploads/no-image.png') ?>" alt="<?= htmlspecialchars($p['name']) ?>" style="width:100%; height:100%; object-fit:cover;">
+                    <?php if ($p['sales'] && $p['date_time']): ?>
+                        <div class="badge">🔥 -<?= $p['sales'] ?>%</div>
+                    <?php endif; ?>
+                    <img src="../../<?= htmlspecialchars($p['images'][0] ?? 'uploads/no-image.png') ?>" alt="<?= htmlspecialchars($p['name']) ?>">
                 </div>
                 <div class="details">
                     <h2><?= htmlspecialchars($p['name']) ?> <span><?= htmlspecialchars($p['type']) ?></span></h2>
                     <?php if ($p['sales']): ?>
-                    <?php
-                        $discounted = $p['price'] * (1 - $p['sales'] / 100);
-                    ?>
-                    <p class="price">
-                        <span class="original"><?= number_format($p['price'], 0, ',', '.') ?>đ</span>
-                        <span class="discounted"><?= number_format($discounted, 0, ',', '.') ?>đ</span>
-                    </p>
+                        <?php $discounted = $p['price'] * (1 - $p['sales'] / 100); ?>
+                        <p class="price">
+                            <span class="original"><?= number_format($p['price'], 0, ',', '.') ?>đ</span>
+                            <span class="discounted"><?= number_format($discounted, 0, ',', '.') ?>đ</span>
+                        </p>
                     <?php else: ?>
                         <p class="price"><?= number_format($p['price'], 0, ',', '.') ?>đ</p>
                     <?php endif; ?>
@@ -65,19 +70,23 @@ foreach ($products as &$p) {
                     <label>Màu</label>
                     <ul class="colors">
                         <?php foreach ($p['colors'] as $cl): ?>
-                            <li style="background-color: <?= htmlspecialchars($cl) ?>;"></li>
+                            <?php 
+                                $color = trim($cl);
+                                // Kiểm tra an toàn để loại bỏ giá trị rỗng hoặc không hợp lệ nếu cần
+                                if ($color !== ''):
+                            ?>
+                                <li 
+                                    style="background-color: <?= htmlspecialchars($color) ?>;" 
+                                    title="<?= htmlspecialchars($color) ?>">
+                                </li>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </ul>
 
-                    <?php if ($p['sales'] && $p['date_time']): ?>
-                        <div class="sale-box">
-                            🔥 Giảm <?= $p['sales'] ?>% đến <?= date('d/m/Y H:i', strtotime($p['date_time'])) ?>
-                        </div>
-                    <?php else: ?>
-                        <div class="sale-box small">
-                            <a href="#">Xem chi tiết</a>
-                        </div>
-                    <?php endif; ?>
+
+                    <div class="buy-now">
+                        <a href="#"><i class="fa fa-shopping-cart"></i> Thêm Giỏ & Mua Ngay</a>
+                    </div>
                 </div>
             </div>
         <?php endforeach; ?>
