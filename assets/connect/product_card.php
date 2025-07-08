@@ -19,13 +19,19 @@ function getDb() {
 
 $pdo = getDb();
 $gender = $_GET['gender'] ?? null;
+$offer = isset($_GET['offer']);
 
-if ($gender) {
+if ($offer) {
+    $stmt = $pdo->prepare("SELECT * FROM products WHERE sales > 0 AND (date_time IS NULL OR date_time >= NOW()) ORDER BY created_at DESC");
+    $stmt->execute();
+    $rawProducts = $stmt->fetchAll();
+} elseif ($gender) {
     $genderMap = [
         'boys' => ['boy', 'boys'],
         'girls' => ['girl', 'girls'],
         'kids' => ['kid', 'kids', 'children']
     ];
+
 
     $gender = strtolower($gender);
     $gendersToMatch = $genderMap[$gender] ?? [$gender]; // fallback nếu không khớp
@@ -72,6 +78,7 @@ foreach ($rawProducts as $p) {
                 <a href="?gender=boys">Boys</a>
                 <a href="?gender=girls">Girls</a>
                 <a href="?gender=kids">Kids</a>
+                <a href="?offer=1">special offer</a>
                 <a href="#">Trademark</a>
             </nav>
             <div class="search">
@@ -85,20 +92,20 @@ foreach ($rawProducts as $p) {
                 </a>
             </div>
             <div class="cart-icons">
-                <a href="cart.html" class="cart-icon" title="Giỏ hàng">
+                <a href="../../pages/home/cart.html" class="cart-icon" title="Giỏ hàng">
                     <i class='bx bx-cart'></i>
                 </a>    
             </div>
             </div>
         </header>
-    <?php if ($gender): ?>
-    <h1 style="text-align:center; padding: 20px 0;">
-        Hiển thị sản phẩm cho: <?= htmlspecialchars(ucfirst($gender)) ?>
-    </h1>
-    <?php endif; ?>
 
-    <div class="product-container">
-        <?php foreach ($products as $p): ?>
+            <?php if ($offer): ?>
+            <?php elseif ($gender): ?>
+            <?= htmlspecialchars(ucfirst($gender)) ?>
+            <?php endif; ?>
+
+            <div class="product-container">
+                <?php foreach ($products as $p): ?>
             <div class="item">
                 <div class="img-box">
                     <?php if ($p['sales'] && $p['date_time']): ?>
@@ -125,12 +132,11 @@ foreach ($rawProducts as $p) {
                         <?php endforeach; ?>
                     </ul>
 
-                    <label>Màu</label>
+                    <label>Color</label>
                     <ul class="colors">
                         <?php foreach ($p['colors'] as $cl): ?>
                             <?php 
                                 $color = trim($cl);
-                                // Kiểm tra an toàn để loại bỏ giá trị rỗng hoặc không hợp lệ nếu cần
                                 if ($color !== ''):
                             ?>
                                 <li 
@@ -233,7 +239,6 @@ foreach ($rawProducts as $p) {
                     quantity: 1
                 };
 
-                // Thêm vào giỏ hàng trong localStorage
                 let cart = JSON.parse(localStorage.getItem('cart')) || [];
                 cart.push(product);
                 localStorage.setItem('cart', JSON.stringify(cart));
