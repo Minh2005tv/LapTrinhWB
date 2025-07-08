@@ -109,7 +109,24 @@ foreach ($rawProducts as $p) {
                     <?php if ($p['sales'] && $p['date_time']): ?>
                         <div class="badge">🔥 -<?= $p['sales'] ?>%</div>
                     <?php endif; ?>
-                    <img src="../../<?= htmlspecialchars($p['images'][0] ?? 'uploads/no-image.png') ?>" alt="<?= htmlspecialchars($p['name']) ?>">
+                    <?php
+                    $discounted = $p['price'];
+                    if ($p['sales']) {
+                        $discounted = $p['price'] * (1 - $p['sales'] / 100);
+                    }
+
+                    $productData = [
+                        'name' => $p['name'],
+                        'price' => $p['sales'] ? $discounted : $p['price'],
+                        'image' => '../../' . ($p['images'][0] ?? 'uploads/no-image.png'),
+                        'sizes' => $p['sizes'],
+                        'colors' => $p['colors']
+                    ];
+                    $encoded = base64_encode(json_encode($productData));
+                    ?>
+                    <a href="product_detail.php?data=<?= urlencode($encoded) ?>">
+                         <img src="../../<?= htmlspecialchars($p['images'][0] ?? 'uploads/no-image.png') ?>" alt="<?= htmlspecialchars($p['name']) ?>">
+                    </a>
                 </div>
                 <div class="details">
                     <h2><?= htmlspecialchars($p['name']) ?> <span><?= htmlspecialchars($p['type']) ?></span></h2>

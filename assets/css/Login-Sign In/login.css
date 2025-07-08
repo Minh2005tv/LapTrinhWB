@@ -108,13 +108,13 @@
     width: 75%;
     height: 75%;
     transform: translate(-50%, -50%);
-    background-image: url('../../img/login-bg.jpg');
     background-size: cover;
     display: flex;
     margin-top: 10px;
     border: 1px solid black;
     border-radius: 10px;
     border: none;
+    justify-content: center;
 }
 
 .content {
