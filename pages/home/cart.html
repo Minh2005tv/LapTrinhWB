@@ -121,7 +121,7 @@
         document.querySelectorAll(".product").forEach((p) => {
           const name = p.querySelector(".product-title").textContent;
           const price = parseFloat(p.dataset.price);
-          const image = p.querySelector("img").src;
+          const image = new URL(p.querySelector("img").getAttribute("src"), window.location.href).href;
           const size = p.querySelector(".size-select").value;
           const qty = parseInt(p.querySelector("input[type='number']").value);
           const color = "";
@@ -267,25 +267,33 @@
                   items: cartItems
                 })
               })
-              .then(response => response.json())
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error("HTTP status " + response.status);
+                }
+                return response.json();
+              })
               .then(data => {
+                console.log("📦 Server response:", data);
                 if (data.success) {
-                  alert("✅ Thanh toán thành công! Mã đơn hàng: #" + data.order_id);
+                  alert("Thanh toán thành công! Mã đơn hàng: #" + data.order_id);
                   localStorage.removeItem("cart");
                   location.href = "thank_you.html";
                 } else {
-                  alert("❌ Có lỗi xảy ra khi lưu đơn hàng.");
+                  alert("❌ Có lỗi xảy ra khi lưu đơn hàng: " + (data.message || "Không rõ lỗi."));
                 }
               })
               .catch(error => {
-                console.error("Lỗi gửi đơn hàng:", error);
-                alert("❌ Không thể kết nối máy chủ.");
+                console.error("❌ Lỗi gửi đơn hàng:", error);
+                alert("Không thể kết nối máy chủ.\nChi tiết lỗi: " + error.message);
               });
+
             } else {
-              alert("❌ Thanh toán đã bị hủy.");
+              alert("Thanh toán đã bị hủy.");
             }
           });
         });
+
         updateCartSummary();
       });
 

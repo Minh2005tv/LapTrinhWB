@@ -389,3 +389,64 @@ footer.main-footer {
   80% { transform: scale(0.98) rotate(10deg); }
   100% { transform: scale(1) rotate(0); }
 }
+
+/* ========== Giao diện mới cho popup xác nhận thanh toán (HTML cũ) ========== */
+#popup-noti .confirm-popup {
+  background: #fff;
+  border-radius: 18px;
+  padding: 32px 40px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  min-width: 320px;
+  max-width: 90vw;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  animation: popup-fadeIn 0.4s ease-out;
+  position: relative;
+}
+
+#popup-noti .confirm-popup h4 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #1a237e;
+  margin-bottom: 24px;
+}
+
+#popup-noti .confirm-popup button {
+  padding: 10px 24px;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  margin: 0 10px;
+}
+
+#popup-noti .confirm-popup #confirm-yes {
+  background-color: #43d477;
+  color: #fff;
+}
+#popup-noti .confirm-popup #confirm-yes:hover {
+  background-color: #2ebd65;
+  transform: scale(1.05);
+}
+
+#popup-noti .confirm-popup #confirm-no {
+  background-color: #e0e0e0;
+  color: #333;
+}
+#popup-noti .confirm-popup #confirm-no:hover {
+  background-color: #c8c8c8;
+  transform: scale(1.05);
+}
+
+@keyframes popup-fadeIn {
+  0% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
