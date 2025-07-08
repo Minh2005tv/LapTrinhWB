@@ -2,8 +2,10 @@
 session_start();
 $pdo = new PDO("mysql:host=localhost;dbname=selling_shoes;charset=utf8mb4", 'root', '');
 
+// Giả lập user_id (sau này dùng $_SESSION['user_id'] nếu có login)
 $user_id = null;
 
+// Tạo cart nếu chưa có
 if (!isset($_SESSION['cart_id'])) {
     $stmt = $pdo->prepare("INSERT INTO carts (user_id) VALUES (:user_id)");
     $stmt->execute(['user_id' => $user_id]);
@@ -15,6 +17,7 @@ $cart_id = $_SESSION['cart_id'];
 $product_id = $_POST['product_id'];
 $size = $_POST['size'] ?? 'M';
 
+// Kiểm tra nếu sản phẩm đã có trong giỏ thì tăng số lượng
 $check = $pdo->prepare("SELECT id, quantity FROM cart_items WHERE cart_id = ? AND product_id = ? AND size = ?");
 $check->execute([$cart_id, $product_id, $size]);
 $exist = $check->fetch();

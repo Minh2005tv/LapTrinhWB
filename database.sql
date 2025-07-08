@@ -68,3 +68,25 @@ SET type = LOWER(TRIM(type));
 UPDATE products SET type = 'boys' WHERE type IN ('boy', 'bois');
 UPDATE products SET type = 'girls' WHERE type IN ('girl', 'gurl');
 UPDATE products SET type = 'kids' WHERE type IN ('kid', 'children');
+
+-- Bảng đơn hàng
+CREATE TABLE orders (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  address VARCHAR(255) NOT NULL,
+  delivery_method VARCHAR(50),
+  payment_method VARCHAR(50),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Bảng chi tiết sản phẩm trong đơn hàng
+CREATE TABLE order_items (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  order_id INT,
+  name VARCHAR(255),
+  price DECIMAL(10, 2),
+  image TEXT,
+  size VARCHAR(20),
+  color VARCHAR(20),
+  quantity INT,
+  FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+);

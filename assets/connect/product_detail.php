@@ -24,7 +24,7 @@ $colors = $data['colors'] ?? [];
                 <a href="#"><img src="../../assets/img/logo.jpg" alt="Logo"></a>
             </div>    
             <nav class="nav">
-                <a href="#">Home</a>
+                <a href="../../pages/home/home.html">Home</a>
                 <a href="../../assets/connect/product_card.php?gender=boys">Boys</a>
                 <a href="../../assets/connect/product_card.php?gender=girls">Girls</a>
                 <a href="../../assets/connect/product_card.php?gender=kids">Kids</a>
@@ -178,15 +178,15 @@ $colors = $data['colors'] ?? [];
 
     function validateSelection(data) {
       if (!data.size) {
-        alert("❌ Vui lòng chọn kích thước.");
+        alert(" Vui lòng chọn kích thước.");
         return false;
       }
       if (!data.color) {
-        alert("❌ Vui lòng chọn màu sắc.");
+        alert(" Vui lòng chọn màu sắc.");
         return false;
       }
       if (!data.quantity || data.quantity < 1) {
-        alert("❌ Vui lòng nhập số lượng hợp lệ.");
+        alert(" Vui lòng nhập số lượng hợp lệ.");
         return false;
       }
       return true;
@@ -214,14 +214,16 @@ $colors = $data['colors'] ?? [];
       alert("Sản phẩm đã được thêm vào giỏ hàng!");
     }
 
-    function buyNow() {
-      const selected = getSelectedData();
-      if (!validateSelection(selected)) return;
+        function buyNow() {
+        const selected = getSelectedData();
+        if (!validateSelection(selected)) return;
+        const product = buildProductObject(selected);
+        localStorage.setItem("cart", JSON.stringify([product]));
 
-      const product = buildProductObject(selected);
-      localStorage.setItem("cart", JSON.stringify([product]));
-      window.location.href = "cart.html";
-    }
+        // Đường dẫn chính xác tới cart.html
+        window.location.href = "/Website_Selling%20sports%20shoes/pages/home/cart.html";
+        }
+
   </script>
 </body>
 </html>

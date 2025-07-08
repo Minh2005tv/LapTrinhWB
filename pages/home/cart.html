@@ -33,7 +33,7 @@
                 <a href="#"><img src="../../assets/img/logo.jpg" alt="Logo"></a>
             </div>    
             <nav class="nav">
-                <a href="#">Home</a>
+                <a href="../home/home.html">Home</a>
                 <a href="../../assets/connect/product_card.php?gender=boys">Boys</a>
                 <a href="../../assets/connect/product_card.php?gender=girls">Girls</a>
                 <a href="../../assets/connect/product_card.php?gender=kids">Kids</a>
@@ -253,17 +253,42 @@
 
           showConfirmPopup((confirmed) => {
             if (confirmed) {
-              alert("✅ Thanh toán thành công! Cảm ơn bạn đã mua hàng.");
-              localStorage.removeItem("cart");
-              location.reload();
+              const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+
+              fetch("../../assets/connect/save_order.php", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  address,
+                  delivery_method: delivery,
+                  payment_method: payment,
+                  items: cartItems
+                })
+              })
+              .then(response => response.json())
+              .then(data => {
+                if (data.success) {
+                  alert("✅ Thanh toán thành công! Mã đơn hàng: #" + data.order_id);
+                  localStorage.removeItem("cart");
+                  location.href = "thank_you.html";
+                } else {
+                  alert("❌ Có lỗi xảy ra khi lưu đơn hàng.");
+                }
+              })
+              .catch(error => {
+                console.error("Lỗi gửi đơn hàng:", error);
+                alert("❌ Không thể kết nối máy chủ.");
+              });
             } else {
               alert("❌ Thanh toán đã bị hủy.");
             }
           });
         });
-
         updateCartSummary();
       });
+
     </script>
     <!--Footer-->
     <footer class="footer">
