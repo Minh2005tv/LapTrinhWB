@@ -22,16 +22,17 @@ $gender = $_GET['gender'] ?? null;
 $offer = isset($_GET['offer']);
 
 if ($offer) {
+    // Chỉ lấy sản phẩm đang khuyến mãi
     $stmt = $pdo->prepare("SELECT * FROM products WHERE sales > 0 AND (date_time IS NULL OR date_time >= NOW()) ORDER BY created_at DESC");
     $stmt->execute();
     $rawProducts = $stmt->fetchAll();
 } elseif ($gender) {
+    // Lấy sản phẩm theo giới tính, bao gồm cả có và không khuyến mãi
     $genderMap = [
         'boys' => ['boy', 'boys'],
         'girls' => ['girl', 'girls'],
         'kids' => ['kid', 'kids', 'children']
     ];
-
 
     $gender = strtolower($gender);
     $gendersToMatch = $genderMap[$gender] ?? [$gender]; // fallback nếu không khớp
@@ -78,8 +79,7 @@ foreach ($rawProducts as $p) {
                 <a href="?gender=boys">Boys</a>
                 <a href="?gender=girls">Girls</a>
                 <a href="?gender=kids">Kids</a>
-                <a href="?offer=1">special offer</a>
-                <a href="#">Trademark</a>
+                <a href="?offer=1">Special Offer</a>
             </nav>
             <div class="search">
                 <div class="search-box">
@@ -98,9 +98,7 @@ foreach ($rawProducts as $p) {
             </div>
             </div>
         </header>
-
-            <?php if ($offer): ?>
-            <?php elseif ($gender): ?>
+            <?php if ($gender): ?>
             <?= htmlspecialchars(ucfirst($gender)) ?>
             <?php endif; ?>
 
