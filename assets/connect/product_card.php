@@ -57,6 +57,8 @@ foreach ($rawProducts as $p) {
     <link rel="stylesheet" href="../css/home/product_card.css">
     <link rel="stylesheet" href="../css/home/header.css">
     <link rel="stylesheet" href="../css/home/footer.css">
+    <link rel="icon" href="../../assets/icon/favicon.jpg" type="image/jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
