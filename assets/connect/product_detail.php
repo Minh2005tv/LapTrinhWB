@@ -13,6 +13,7 @@ $colors = $data['colors'] ?? [];
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($name) ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../css/home/product_detail.css">
     <link rel="stylesheet" href="../css/home/header.css">
     <link rel="stylesheet" href="../css/home/footer.css">
@@ -36,12 +37,12 @@ $colors = $data['colors'] ?? [];
                     <i class='bx bx-search'></i>
                 </div>
             <div class="user-icons">
-                <a href="../error/error.html" class="user-icon" title="Tài khoản">
+                <a href="../../pages/error/error.html" class="user-icon" title="Tài khoản">
                     <i class='bx bx-user-circle'></i>
                 </a>
             </div>
             <div class="cart-icons">
-                <a href="../../assets/connect/cart.php" class="cart-icon" title="Giỏ hàng">
+                <a href="../../pages/home/cart.html" class="cart-icon" title="Giỏ hàng">
                     <i class='bx bx-cart'></i>
                 </a>    
             </div>

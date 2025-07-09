@@ -450,3 +450,64 @@ footer.main-footer {
     opacity: 1;
   }
 }
+
+#popup-noti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Tối nền */
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  font-family: 'Arial', sans-serif;
+}
+
+#popup-noti > div {
+  background: #fff;
+  padding: 30px 25px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+#popup-noti h4 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+#popup-noti button {
+  padding: 10px 18px;
+  margin: 8px 6px 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#popup-noti #confirm-yes {
+  background-color: #28a745;
+  color: white;
+}
+
+#popup-noti #confirm-no {
+  background-color: #dc3545;
+  color: white;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

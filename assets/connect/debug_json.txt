@@ -1,0 +1,2 @@
+{"address":"Lấp vò","delivery_method":"fast","payment_method":"cod","items":[{"name":"Giày thể thao Anta","price":360,"image":"../../uploads/img_686c4348b7de0.jpg","sizes":["36"],"colors":["rgba(250, 143, 243, 1)"],"quantity":1}]}
+{"address":"tp.HCM","delivery_method":"fast","payment_method":"cod","items":[{"name":"Giày thể thao Jogarbola","price":499,"image":"../../uploads/img_686b9a3e16850.jpg","sizes":["36"],"colors":["#ff000"],"quantity":1}]}
